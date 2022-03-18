@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "91076177499",
+    "project_id": "quester-94fed",
+    "storage_bucket": "quester-94fed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91076177499:android:b2326bbd6eab690049997e",
+        "android_client_info": {
+          "package_name": "com.pucpr.quester"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91076177499-mpg0gtq99a7tllvud5e3j14gpjk79h1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArfDC0Ck0oXOhHFJ3WFkiRclZyKqR61gA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91076177499-mpg0gtq99a7tllvud5e3j14gpjk79h1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
