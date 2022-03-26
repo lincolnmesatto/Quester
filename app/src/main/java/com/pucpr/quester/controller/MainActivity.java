@@ -19,9 +19,6 @@ import com.pucpr.quester.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-
     EditText editTextLogin;
     EditText editTextPassword;
 
@@ -32,10 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextPassword = findViewById(R.id.editTextPassword);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
     }
     public void buttonLoginClicked(View view){
         String email = editTextLogin.getText().toString();
@@ -45,21 +38,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginUser(String email, String password){
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signInWithEmailAndPassword(email, password).
-                addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            if(firebaseUser != null){
-                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                            }
-                        }else{
-                            Toast.makeText(MainActivity.this,"Login failed", Toast.LENGTH_LONG).show();
-                            Log.e("FIREBASELOGIN", "Login Error"+task.getException().toString());
-                        }
-                    }
-                });
+
     }
 }
