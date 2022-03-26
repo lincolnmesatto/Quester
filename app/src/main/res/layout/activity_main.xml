@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.MainActivity">
+    tools:context=".controller.MainActivity"
+    android:background="@color/tortoise">
 
     <Button
         android:id="@+id/btnLogin"
@@ -27,6 +28,7 @@
         android:hint="@string/login_hint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:selectAllOnFocus="false"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -46,4 +48,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextLogin"
         app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
