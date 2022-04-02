@@ -1,4 +1,4 @@
-package com.pucpr.quester.Model;
+package com.pucpr.quester.model;
 
 public class Instituicao {
     private String id;

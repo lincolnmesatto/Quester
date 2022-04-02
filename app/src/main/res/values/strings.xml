@@ -3,4 +3,13 @@
     <string name="btnLogin">LOGIN</string>
     <string name="login_hint">user@email.com</string>
     <string name="senha_hint">Senha</string>
+    <string name="nome_da_instituicao">Nome da Instituição</string>
+    <string name="telefone">Telefone</string>
+    <string name="cidade">Cidade</string>
+    <string name="bairro">Bairro</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="complemento">Complemento</string>
+    <string name="numero">Número</string>
+    <string name="uf">UF</string>
+    <string name="salvar">Salvar</string>
 </resources>

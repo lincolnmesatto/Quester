@@ -1,4 +1,4 @@
-package com.pucpr.quester.Controller;
+package com.pucpr.quester.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 

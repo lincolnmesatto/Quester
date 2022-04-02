@@ -1,4 +1,4 @@
-package com.pucpr.quester.Controller;
+package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +16,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pucpr.quester.R;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
 
 public class MainActivity extends AppCompatActivity {
 
