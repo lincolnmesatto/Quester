@@ -28,11 +28,12 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/telefone"
+        android:importantForAutofill="no"
         android:inputType="phone"
         android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintStart_toStartOf="@+id/editTextNome"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNome"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNome" />
 
     <EditText
         android:id="@+id/editTextUF"
@@ -58,12 +59,13 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/cidade"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="@+id/editTextUF"
         app:layout_constraintStart_toStartOf="@+id/editTextTelefone"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTelefone"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTelefone" />
 
     <EditText
         android:id="@+id/editTextBairro"
@@ -72,12 +74,13 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/bairro"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="@+id/editTextCidade"
         app:layout_constraintStart_toStartOf="@+id/editTextCidade"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCidade"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCidade" />
 
     <EditText
         android:id="@+id/editTextNumero"
@@ -114,12 +117,13 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/logradouro"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="@+id/editTextBairro"
         app:layout_constraintStart_toStartOf="@+id/editTextBairro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBairro"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextBairro" />
 
     <Button
         android:id="@+id/buttonSalvar"
