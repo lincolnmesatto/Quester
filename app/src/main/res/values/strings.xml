@@ -12,4 +12,5 @@
     <string name="numero">Número</string>
     <string name="uf">UF</string>
     <string name="salvar">Salvar</string>
+    <string name="todo">TODO</string>
 </resources>
