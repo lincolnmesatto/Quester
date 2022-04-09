@@ -4,32 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.MainActivity"
-    android:background="@color/tortoise">
+    android:background="@color/white"
+    tools:context=".controller.MainActivity">
+
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/colorPrimary"
         android:onClick="buttonLoginClicked"
         android:text="@string/btnLogin"
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:rippleColor="@color/colorPrimary" />
 
     <EditText
         android:id="@+id/editTextLogin"
         android:layout_width="277dp"
         android:layout_height="48dp"
         android:layout_marginTop="240dp"
+        android:background="@drawable/round_border"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="16dp"
+        android:drawableTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/login_hint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:padding="16dp"
         android:selectAllOnFocus="false"
         android:textColorHint="#757575"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,13 +50,51 @@
         android:layout_width="277dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/round_border"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="16dp"
+        android:drawableTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/senha_hint"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:padding="16dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/editTextLogin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextLogin"
         app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
+
+    <View
+        android:id="@+id/topView"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/topWave"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ic_wave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/Hand_Write"
+        android:text="QUESTER"
+        android:textColor="@color/white"
+        android:textSize="70sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
