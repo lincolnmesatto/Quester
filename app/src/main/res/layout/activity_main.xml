@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:fontFamily="@font/Hand_Write"
+        android:fontFamily="@font/hand_write"
         android:text="QUESTER"
         android:textColor="@color/white"
         android:textSize="70sp"

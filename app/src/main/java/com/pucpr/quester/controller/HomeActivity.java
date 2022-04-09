@@ -2,37 +2,29 @@ package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Query;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Instituicao;
-import com.pucpr.quester.model.InstituicaoDataModel;
-
-
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    InstituicaoAdapter adapter;
+    FirestoreRecyclerAdapter adapter;
 
     FirebaseFirestore firestore;
     FirebaseUser firebaseUser;
@@ -46,109 +38,58 @@ public class HomeActivity extends AppCompatActivity {
         setTitle("Instituição");
         recyclerView = findViewById(R.id.recyclerView);
 
-        InstituicaoDataModel.getInstance().setContext(HomeActivity.this);
-
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        listarInstituicoes();
+        Query query =  firestore.collection("instituicoes");
+        FirestoreRecyclerOptions<Instituicao> options = new FirestoreRecyclerOptions.Builder<Instituicao>()
+                .setQuery(query, Instituicao.class)
+                .build();
 
-        adapter = new InstituicaoAdapter();
+        adapter = new FirestoreRecyclerAdapter<Instituicao, InstituicaoViewHolder>(options) {
+            @NonNull
+            @Override
+            public InstituicaoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_instituicao, parent, false);
+                return new InstituicaoViewHolder(view);
+            }
 
-        recyclerView.setAdapter(adapter);
+            @Override
+            protected void onBindViewHolder(@NonNull InstituicaoViewHolder holder, int position, @NonNull Instituicao model) {
+                holder.textViewName.setText(model.getNome());
+            }
+        };
+
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
 
-        adapter.setClickListener((position, view) -> {
-            Intent intent = new Intent(HomeActivity.this, CadastrarInstituicaoActivity.class);
-            intent.putExtra("position", position);
-            startActivity(intent);
-        });
+    private class InstituicaoViewHolder extends RecyclerView.ViewHolder {
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                        int fromPos = viewHolder.getAdapterPosition();
-                        int toPos = target.getAdapterPosition();
-                        Instituicao from = InstituicaoDataModel.getInstance().getInstituicoes().get(fromPos);
-                        Instituicao to = InstituicaoDataModel.getInstance().getInstituicoes().get(toPos);
+        private final TextView textViewName;
 
-                        InstituicaoDataModel.getInstance().getInstituicoes().set(fromPos, to);
-                        InstituicaoDataModel.getInstance().getInstituicoes().set(toPos, from);
-                        adapter.notifyItemMoved(fromPos,toPos);
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                        int position = viewHolder.getAdapterPosition();
-                        Instituicao i = InstituicaoDataModel.getInstance().getInstituicoes().get(position);
-
-                        InstituicaoDataModel.getInstance().getInstituicoes().remove(i);
-
-//                        ref.setValue(InstituicaoDataModel.getInstance().getInstituicoes())
-//                                .addOnCompleteListener(task -> {
-//                                    if(task.isSuccessful()){
-//                                        Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
-//                                    }
-//                                });
-
-                        adapter.notifyItemRemoved(position);
-                    }
-                }
-        );
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                InstituicaoDataModel.getInstance().getInstituicoes().clear();
-//
-//                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    Instituicao colecao = dataSnapshot.getValue(Instituicao.class);
-//                    InstituicaoDataModel.getInstance().getInstituicoes().add(colecao);
-//                }
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        public InstituicaoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewName = itemView.findViewById(R.id.textViewName);
+        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        listarInstituicoes();
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 
     public void btnAddInstituicaoClicked(View view) {
         Intent i = new Intent(HomeActivity.this, CadastrarInstituicaoActivity.class);
         startActivity(i);
-    }
-
-    public void listarInstituicoes(){
-        InstituicaoDataModel.getInstance().getInstituicoes().clear();
-        firestore.collection("instituicoes")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Instituicao i = document.toObject(Instituicao.class);
-                                Log.d("Inst ", i.toString());
-                                InstituicaoDataModel.getInstance().getInstituicoes().add(i);
-                            }
-                        } else {
-                            Log.d("Error getting documents ", task.getException().toString());
-                        }
-                    }
-                });
     }
 }
