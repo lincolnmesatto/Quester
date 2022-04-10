@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +31,8 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
     EditText editTextComplemento;
     EditText editTextNumero;
 
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +50,39 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         editTextNumero = findViewById(R.id.editTextNumero);
 
         firestore = FirebaseFirestore.getInstance();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            id = extras.getString("id");
+
+            DocumentReference docRef = firestore.collection("instituicoes").document(id);
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    Instituicao i = documentSnapshot.toObject(Instituicao.class);
+
+                    editTextNome.setText(i.getNome());
+                    editTextTelefone.setText(i.getTelefone());
+                    editTextUF.setText(i.getEstado());
+                    editTextCidade.setText(i.getCidade());
+                    editTextBairro.setText(i.getBairro());
+                    editTextLogradouro.setText(i.getLogradouro());
+                    editTextComplemento.setText(i.getComplemento());
+                    editTextNumero.setText(i.getNumero());
+                }
+            });
+
+        }else{
+            id = "none";
+        }
     }
 
     public void buttonSalvarClicked(View view) {
-        Instituicao instituicao = new Instituicao("1", editTextNome.getText().toString(), editTextUF.getText().toString(),
+        if(id == "none") {
+            DocumentReference ref = firestore.collection("instituicoes").document();
+            id = ref.getId();
+        }
+        Instituicao instituicao = new Instituicao(id, editTextNome.getText().toString(), editTextUF.getText().toString(),
                 editTextCidade.getText().toString(), editTextBairro.getText().toString(),
                 editTextLogradouro.getText().toString(), editTextNumero.getText().toString(),
                 editTextComplemento.getText().toString(), editTextTelefone.getText().toString());
@@ -59,10 +92,10 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
 
     void criarInstituicao(Instituicao instituicao) {
         firestore.collection("instituicoes").
-                document(instituicao.getId()+"-"+instituicao.getNome()).set(instituicao);
+                document(instituicao.getId()).set(instituicao);
 
         firestore.collection("instituicoes").
-                document(instituicao.getId()+"-"+instituicao.getNome()).
+                document(instituicao.getId()).
                 addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value,
