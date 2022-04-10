@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         String email = editTextLogin.getText().toString();
         String senha = editTextPassword.getText().toString();
 
-        loginUser(email, senha);
-//        createUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
+        //loginUser(email, senha);
+        loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
     }
 
     public void loginUser(String login, String senha) {

@@ -1,32 +1,39 @@
 package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Instituicao;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements InstituicaoAdapter.OnListItemClick {
 
@@ -51,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setInitialLoadSizeHint(10)
-                .setPageSize(3)
+                .setPageSize(10)
                 .build();
 
         Query query =  firestore.collection("instituicoes");
@@ -73,6 +80,27 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
+                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+
+                        deletar(position);
+
+                        Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
+                        adapter.notifyItemRemoved(position);
+                    }
+                }
+        );
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     public void btnAddInstituicaoClicked(View view) {
@@ -86,5 +114,36 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         Intent i = new Intent(HomeActivity.this, CadastrarInstituicaoActivity.class);
         i.putExtra("id", snapshot.getId());
         startActivity(i);
+    }
+
+    public void deletar(int position){
+        firestore.collection("instituicoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<Instituicao> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        list.add(document.toObject(Instituicao.class));
+                    }
+                    Instituicao i = (Instituicao) list.get(position);
+                    firestore.collection("instituicoes").document(i.getId())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("EXCLUIR_INSTITUICAO", "Instituicao deletada com sucesso");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("EXCLUIR_INSTITUICAO", "Erro ao exlcuir instituicao", e);
+                                }
+                            });
+                } else {
+                    Log.d("OBTER_INSTITUICAO", "Erro ao obter: ", task.getException());
+                }
+            }
+        });
     }
 }
