@@ -1,7 +1,6 @@
 package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -23,9 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -90,11 +87,10 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
                     }
 
                     @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
                         int position = viewHolder.getAdapterPosition();
 
                         deletar(position);
-
                         Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
                         adapter.notifyItemRemoved(position);
                     }
@@ -125,7 +121,7 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         list.add(document.toObject(Instituicao.class));
                     }
-                    Instituicao i = (Instituicao) list.get(position);
+                    Instituicao i = list.get(position);
                     firestore.collection("instituicoes").document(i.getId())
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
