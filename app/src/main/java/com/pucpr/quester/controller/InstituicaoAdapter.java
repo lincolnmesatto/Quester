@@ -67,7 +67,24 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);
 
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onListItemClick == null)
+                        return;
+                    onListItemClick.onItemClick(getItem(getAdapterPosition()), getAdapterPosition());
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onListItemClick == null)
+                        return false;
+
+                    return onListItemClick.onItemLongClick(getItem(getAdapterPosition()), getAdapterPosition());
+                }
+            });
         }
 
         @Override
@@ -78,5 +95,6 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
     public interface OnListItemClick {
         void onItemClick(DocumentSnapshot snapshot, int posicao);
+        boolean onItemLongClick(DocumentSnapshot snapshot, int posicao);
     }
 }

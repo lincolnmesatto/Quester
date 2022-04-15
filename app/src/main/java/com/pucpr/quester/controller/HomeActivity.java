@@ -112,6 +112,16 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         startActivity(i);
     }
 
+    @Override
+    public boolean onItemLongClick(DocumentSnapshot snapshot, int posicao) {
+        Log.d("ITEM_LONG_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
+        Intent i = new Intent(HomeActivity.this, InsituicaoDerivadoActivity.class);
+        i.putExtra("id", snapshot.getId());
+        startActivity(i);
+
+        return true;
+    }
+
     public void deletar(int position){
         firestore.collection("instituicoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
