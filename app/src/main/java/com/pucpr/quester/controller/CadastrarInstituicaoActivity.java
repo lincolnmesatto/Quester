@@ -1,12 +1,17 @@
 package com.pucpr.quester.controller;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -18,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Instituicao;
+
 
 import java.util.List;
 
@@ -43,6 +49,8 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
 
     String id;
 
+    AwesomeValidation mAwesomeValidation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,18 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         editTextNumero = findViewById(R.id.editTextNumero);
 
         buttonSalvar = findViewById(R.id.buttonSalvar);
+
+        //Validacao Style
+        mAwesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        mAwesomeValidation.setColor(Color.RED);
+
+        mAwesomeValidation.addValidation(this, R.id.editTextNome, "[a-zA-Z\\s]+", R.string.err_name);
+        mAwesomeValidation.addValidation(this, R.id.editTextTelefone, RegexTemplate.TELEPHONE, R.string.err_tel);
+        mAwesomeValidation.addValidation(this, R.id.editTextUF, "[A-Z]{2}", R.string.err_uf);
+        mAwesomeValidation.addValidation(this, R.id.editTextUF,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
+        mAwesomeValidation.addValidation(this, R.id.editTextCidade, RegexTemplate.NOT_EMPTY, R.string.err_vazio);
+        mAwesomeValidation.addValidation(this, R.id.editTextBairro,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
+        mAwesomeValidation.addValidation(this, R.id.editTextLogradouro,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
 
         changeVisibility(View.INVISIBLE);
 
@@ -123,7 +143,12 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
                     editTextLogradouro.getText().toString(), editTextNumero.getText().toString(),
                     editTextComplemento.getText().toString(), editTextTelefone.getText().toString());
 
-            criarInstituicao(instituicao);
+            if(mAwesomeValidation.validate()){
+                Toast.makeText(getApplicationContext(), "Formulario Cadastrado com Sucesso",Toast.LENGTH_LONG).show();
+                criarInstituicao(instituicao);
+            }else {
+                Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+            }
         }
     }
 

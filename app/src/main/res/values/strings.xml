@@ -13,4 +13,12 @@
     <string name="uf">UF</string>
     <string name="salvar">Salvar</string>
     <string name="todo">TODO</string>
+    <string name="err_name">Nome Invalido</string>
+    <string name="err_tel">Telefone Invalido</string>
+    <string name="err_email">Email Invalido</string>
+    <string name="err_year">Data Invalida</string>
+    <string name="err_uf">Estado Invalido</string>
+    <string name="err_cidade">Cidade Invalida</string>
+    <string name="err_bairro">Bairro Invalido</string>
+    <string name="err_vazio">Campo Obrigatório</string>
 </resources>
