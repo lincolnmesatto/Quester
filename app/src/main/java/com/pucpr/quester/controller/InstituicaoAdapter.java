@@ -1,5 +1,7 @@
 package com.pucpr.quester.controller;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.pucpr.quester.R;
 import com.pucpr.quester.model.Instituicao;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, InstituicaoAdapter.InstituicaoViewHolder> {
@@ -27,7 +31,12 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
     @Override
     protected void onBindViewHolder(@NonNull InstituicaoViewHolder holder, int position, @NonNull Instituicao model) {
-        holder.textViewName.setText(model.getNome());
+        holder.textViewNomeInstituicao.setText(model.getNome());
+        holder.textViewNomeEstado.setText(model.getEstado());
+        holder.textViewNomeCidade.setText(model.getCidade());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+
     }
 
     @NonNull
@@ -61,12 +70,20 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
     public class InstituicaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewName;
+        //private final TextView textViewName;
+        private final TextView textViewNomeInstituicao;
+        private final TextView textViewNomeEstado;
+        private final TextView textViewNomeCidade;
+        private final CardView cardViewUserView;
+
 
         public InstituicaoViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
-
+            //textViewName = itemView.findViewById(R.id.textViewName);
+            textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
+            textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
+            textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
+            cardViewUserView = itemView.findViewById(R.id.userView);
             //itemView.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
