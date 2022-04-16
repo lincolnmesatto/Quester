@@ -116,7 +116,9 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
     public boolean onItemLongClick(DocumentSnapshot snapshot, int posicao) {
         Log.d("ITEM_LONG_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
         Intent i = new Intent(HomeActivity.this, InsituicaoDerivadoActivity.class);
-        i.putExtra("id", snapshot.getId());
+        i.putExtra("id_instituicao", snapshot.getId());
+        Instituicao instituicao = snapshot.toObject(Instituicao.class);
+        i.putExtra("nome_instituicao", instituicao.getNome());
         startActivity(i);
 
         return true;

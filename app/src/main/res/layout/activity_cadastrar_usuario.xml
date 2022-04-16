@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.CadastrarUsuarioActivity">
+
+    <EditText
+        android:id="@+id/editTextCpf"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/cpf"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNomeUsuario"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/nome"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCpf"
+        app:layout_constraintStart_toStartOf="@+id/editTextCpf"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCpf" />
+
+    <EditText
+        android:id="@+id/editTextEmailUsuario"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editTextNomeUsuario"
+        app:layout_constraintStart_toStartOf="@+id/editTextNomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNomeUsuario"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/editTextDtNasc"
+        android:layout_width="166dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/data_nascimento"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        android:textColorHint="#757575"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailUsuario" />
+
+    <EditText
+        android:id="@+id/editTextTelUsuario"
+        android:layout_width="179dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/telefone"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailUsuario"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextDtNasc"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailUsuario" />
+
+    <EditText
+        android:id="@+id/editTextGenero"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/genero"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTelUsuario"
+        app:layout_constraintStart_toStartOf="@+id/editTextDtNasc"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDtNasc"
+        android:importantForAutofill="no" />
+
+    <Spinner
+        android:id="@+id/spinnerPerfil"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/perfil"
+        app:layout_constraintEnd_toEndOf="@+id/editTextGenero"
+        app:layout_constraintStart_toStartOf="@+id/editTextGenero"
+        app:layout_constraintTop_toBottomOf="@+id/editTextGenero" />
+
+    <Button
+        android:id="@+id/btnSalvarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:onClick="buttonSalvarClicked"
+        android:text="@string/salvar"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerPerfil"
+        app:layout_constraintStart_toStartOf="@+id/spinnerPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPerfil"
+        tools:ignore="TextContrastCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

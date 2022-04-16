@@ -81,8 +81,6 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(this, R.id.editTextBairro,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
         mAwesomeValidation.addValidation(this, R.id.editTextLogradouro,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
 
-        changeVisibility(View.INVISIBLE);
-
         firestore = FirebaseFirestore.getInstance();
 
         Bundle extras = getIntent().getExtras();
@@ -109,6 +107,8 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         }else{
             id = "none";
         }
+
+        changeVisibility(id.equals("none") ? View.INVISIBLE : View.VISIBLE);
     }
 
     private void changeVisibility(int visibility) {
@@ -144,7 +144,6 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
                     editTextComplemento.getText().toString(), editTextTelefone.getText().toString());
 
             if(mAwesomeValidation.validate()){
-                Toast.makeText(getApplicationContext(), "Formulario Cadastrado com Sucesso",Toast.LENGTH_LONG).show();
                 criarInstituicao(instituicao);
             }else {
                 Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
