@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextLogin;
     EditText editTextPassword;
 
+    AwesomeValidation mAwesomeValidation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +41,24 @@ public class MainActivity extends AppCompatActivity {
 
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextPassword = findViewById(R.id.editTextPassword);
+
+        mAwesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        mAwesomeValidation.setColor(Color.RED);
+
+        mAwesomeValidation.addValidation(this, R.id.editTextLogin, RegexTemplate.NOT_EMPTY, R.string.err_vazio);
+        mAwesomeValidation.addValidation(this, R.id.editTextPassword,RegexTemplate.NOT_EMPTY, R.string.err_vazio);
+        mAwesomeValidation.addValidation(this, R.id.editTextLogin, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}", R.string.err_email);
     }
 
     public void buttonLoginClicked(View view) {
         String email = editTextLogin.getText().toString();
         String senha = editTextPassword.getText().toString();
 
-        loginUser(email, senha);
+        if(mAwesomeValidation.validate()){
+            loginUser(email, senha);
+        }else {
+            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+        }
         //loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
     }
 
@@ -57,32 +74,10 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         } else {
-                            Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "E-mail e/ou senha incorretos.", Toast.LENGTH_LONG).show();
                             Log.e("FIREBASELOGIN", "Login Error" + task.getException().toString());
                         }
                     }
                 });
     }
-
-    public void createUser(String login, String senha) {
-        auth.createUserWithEmailAndPassword(login, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG);
-                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "Cadastrado sem sucesso", Toast.LENGTH_LONG);
-                }
-            }
-        });
-    }
-
-    public void buttonCadastroClicked(View view) {
-//        String senhaHash = criarHash("lincoln.mesatto", "q1w2e3r4");
-//        Usuario usuario = new Usuario("Lincoln Mesatto", "09601876936", "lincoln.mesatto@gmail.com", "lincoln.mesatto" ,senhaHash, "41997475663", "Masculino", 3);
-//        UsuarioDataModel.getInstance().addUsuario(usuario);
-    }
-
 }

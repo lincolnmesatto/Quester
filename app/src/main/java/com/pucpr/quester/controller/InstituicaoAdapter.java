@@ -1,6 +1,5 @@
 package com.pucpr.quester.controller;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,7 +69,6 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
     public class InstituicaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //private final TextView textViewName;
         private final TextView textViewNomeInstituicao;
         private final TextView textViewNomeEstado;
         private final TextView textViewNomeCidade;
@@ -79,12 +77,11 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
         public InstituicaoViewHolder(@NonNull View itemView) {
             super(itemView);
-            //textViewName = itemView.findViewById(R.id.textViewName);
             textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
             textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
             textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
             cardViewUserView = itemView.findViewById(R.id.userView);
-            //itemView.setOnClickListener(this);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
