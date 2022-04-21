@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonLoginClicked(View view) {
-        String email = editTextLogin.getText().toString();
+        String email = editTextLogin.getText().toString().trim();
         String senha = editTextPassword.getText().toString();
 
         if(mAwesomeValidation.validate()){
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
             Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
         }
-        //loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
+//        loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
     }
 
     public void loginUser(String login, String senha) {

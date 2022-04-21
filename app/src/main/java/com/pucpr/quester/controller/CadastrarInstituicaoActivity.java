@@ -73,7 +73,7 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         mAwesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
         mAwesomeValidation.setColor(Color.RED);
 
-        mAwesomeValidation.addValidation(this, R.id.editTextNome, "[a-zA-Z\\s]+", R.string.err_name);
+        mAwesomeValidation.addValidation(this, R.id.editTextNome, RegexTemplate.NOT_EMPTY, R.string.err_vazio);
         mAwesomeValidation.addValidation(this, R.id.editTextTelefone, RegexTemplate.TELEPHONE, R.string.err_tel);
         mAwesomeValidation.addValidation(this, R.id.editTextUF, "[A-Z]{2}", R.string.err_uf);
         mAwesomeValidation.addValidation(this, R.id.editTextUF,RegexTemplate.NOT_EMPTY, R.string.err_vazio);

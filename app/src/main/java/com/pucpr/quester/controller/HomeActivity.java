@@ -53,6 +53,28 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        popularRecyclerView();
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
+                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
+                        int position = viewHolder.getAdapterPosition();
+
+                        deletar(position);
+                    }
+                }
+        );
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    public void popularRecyclerView(){
         PagedList.Config config = new PagedList.Config.Builder()
                 .setInitialLoadSizeHint(10)
                 .setPageSize(10)
@@ -77,26 +99,6 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
-                        int position = viewHolder.getAdapterPosition();
-
-                        deletar(position);
-                        Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
-                        adapter.notifyItemRemoved(position);
-                    }
-                }
-        );
-        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     public void btnAddInstituicaoClicked(View view) {
@@ -140,6 +142,10 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("EXCLUIR_INSTITUICAO", "Instituicao deletada com sucesso");
+                                    adapter.notifyItemRemoved(position);
+                                    Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
+
+                                    popularRecyclerView();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
