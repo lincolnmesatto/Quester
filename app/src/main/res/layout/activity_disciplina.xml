@@ -4,43 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.HomeActivity">
+    tools:context=".controller.DisciplinaActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewDisciplina"
         android:layout_width="364dp"
         android:layout_height="570dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddInstituicao"
+        android:id="@+id/btnAddDisciplina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="12dp"
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
-        android:onClick="btnAddInstituicaoClicked"
+        android:onClick="btnAddDisciplinaClicked"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDisciplina"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginStart="16dp"
-        android:clickable="true"
-        android:onClick="btnAddDisciplinaClicked"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_light"
-        tools:ignore="SpeakableTextPresentCheck" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

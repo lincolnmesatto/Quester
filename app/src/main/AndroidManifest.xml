@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quester">
         <activity
+            android:name=".controller.CadastrarDisciplinaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.DisciplinaActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.CadastrarUsuarioActivity"
             android:exported="false" />
         <activity

@@ -27,15 +27,16 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Instituicao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements InstituicaoAdapter.OnListItemClick {
+public class DisciplinaActivity extends AppCompatActivity implements DisciplinaAdapter.OnListItemClick {
 
-    RecyclerView recyclerView;
-    InstituicaoAdapter adapter;
+    RecyclerView recyclerViewDisciplina;
+    DisciplinaAdapter disciplinaAdapter;
 
     FirebaseFirestore firestore;
     FirebaseUser firebaseUser;
@@ -44,10 +45,10 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_disciplina);
 
-        setTitle("Instituição");
-        recyclerView = findViewById(R.id.recyclerView);
+        setTitle("Disciplina");
+        recyclerViewDisciplina = findViewById(R.id.recyclerViewDisciplina);
 
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -56,22 +57,22 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         popularRecyclerView();
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
-                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
-                        int position = viewHolder.getAdapterPosition();
-
-                        deletar(position);
-                    }
+            new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
+                    ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
                 }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
+                    int position = viewHolder.getAdapterPosition();
+
+                    deletar(position);
+                }
+            }
         );
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(recyclerViewDisciplina);
     }
 
     public void popularRecyclerView(){
@@ -80,41 +81,36 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
                 .setPageSize(10)
                 .build();
 
-        Query query =  firestore.collection("instituicoes");
-        FirestorePagingOptions<Instituicao> options = new FirestorePagingOptions.Builder<Instituicao>()
+        Query query =  firestore.collection("disciplinas");
+        FirestorePagingOptions<Disciplina> options = new FirestorePagingOptions.Builder<Disciplina>()
                 .setLifecycleOwner(this)
-                .setQuery(query, config, new SnapshotParser<Instituicao>() {
+                .setQuery(query, config, new SnapshotParser<Disciplina>() {
                     @NonNull
                     @Override
-                    public Instituicao parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        Instituicao i = snapshot.toObject(Instituicao.class);
-                        i.setId(snapshot.getId());
-                        return i;
+                    public Disciplina parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        Disciplina d = snapshot.toObject(Disciplina.class);
+                        d.setId(snapshot.getId());
+                        return d;
                     }
                 })
                 .build();
 
-        adapter = new InstituicaoAdapter(options, this);
+        disciplinaAdapter = new DisciplinaAdapter(options, this);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-    }
-
-    public void btnAddInstituicaoClicked(View view) {
-        Intent i = new Intent(HomeActivity.this, CadastrarInstituicaoActivity.class);
-        startActivity(i);
+        recyclerViewDisciplina.setHasFixedSize(true);
+        recyclerViewDisciplina.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewDisciplina.setAdapter(disciplinaAdapter);
     }
 
     public void btnAddDisciplinaClicked(View view) {
-        Intent i = new Intent(HomeActivity.this, DisciplinaActivity.class);
+        Intent i = new Intent(DisciplinaActivity.this, CadastrarDisciplinaActivity.class);
         startActivity(i);
     }
 
     @Override
     public void onItemClick(DocumentSnapshot snapshot, int posicao) {
         Log.d("ITEM_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
-        Intent i = new Intent(HomeActivity.this, CadastrarInstituicaoActivity.class);
+        Intent i = new Intent(DisciplinaActivity.this, CadastrarDisciplinaActivity.class);
         i.putExtra("id", snapshot.getId());
         startActivity(i);
     }
@@ -122,45 +118,38 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
     @Override
     public boolean onItemLongClick(DocumentSnapshot snapshot, int posicao) {
         Log.d("ITEM_LONG_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
-        Intent i = new Intent(HomeActivity.this, InsituicaoDerivadoActivity.class);
-        i.putExtra("id_instituicao", snapshot.getId());
-        Instituicao instituicao = snapshot.toObject(Instituicao.class);
-        i.putExtra("nome_instituicao", instituicao.getNome());
+        Intent i = new Intent(DisciplinaActivity.this, CadastrarDisciplinaActivity.class);
+        i.putExtra("id_disciplina", snapshot.getId());
+        Disciplina disciplina = snapshot.toObject(Disciplina.class);
+        i.putExtra("nome_disciplina", disciplina.getNome());
         startActivity(i);
 
         return true;
     }
 
     public void deletar(int position){
-        firestore.collection("instituicoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("disciplinas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    List<Instituicao> list = new ArrayList<>();
+                    List<Disciplina> list = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        list.add(document.toObject(Instituicao.class));
+                        list.add(document.toObject(Disciplina.class));
                     }
-                    Instituicao i = list.get(position);
-                    firestore.collection("instituicoes").document(i.getId())
+                    Disciplina d = list.get(position);
+                    firestore.collection("disciplinas").document(d.getId())
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("EXCLUIR_INSTITUICAO", "Instituicao deletada com sucesso");
-                                    adapter.notifyItemRemoved(position);
+                                    disciplinaAdapter.notifyItemRemoved(position);
                                     Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
 
                                     popularRecyclerView();
                                 }
                             })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("EXCLUIR_INSTITUICAO", "Erro ao exlcuir instituicao", e);
-                                }
+                            .addOnFailureListener(e -> {
                             });
-                } else {
-                    Log.d("OBTER_INSTITUICAO", "Erro ao obter: ", task.getException());
                 }
             }
         });

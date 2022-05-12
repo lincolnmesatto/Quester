@@ -1,6 +1,5 @@
 package com.pucpr.quester.controller;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,36 +11,31 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Instituicao;
+import com.pucpr.quester.model.Disciplina;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, InstituicaoAdapter.InstituicaoViewHolder> {
+public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, DisciplinaAdapter.DisciplinaViewHolder> {
 
     private final OnListItemClick onListItemClick;
 
-    public InstituicaoAdapter(@NonNull FirestorePagingOptions<Instituicao> options, OnListItemClick onListItemClick) {
+    public DisciplinaAdapter(@NonNull FirestorePagingOptions<Disciplina> options, OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull InstituicaoViewHolder holder, int position, @NonNull Instituicao model) {
-        holder.textViewNomeInstituicao.setText(model.getNome());
-        holder.textViewNomeEstado.setText(model.getEstado());
-        holder.textViewNomeCidade.setText(model.getCidade());
-
-        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
-
+    protected void onBindViewHolder(@NonNull DisciplinaViewHolder holder, int position, @NonNull Disciplina model) {
+        holder.textViewNomeDisciplina.setText(model.getNome());
+//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
     }
 
     @NonNull
     @Override
-    public InstituicaoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_instituicao, parent, false);
-        return new InstituicaoViewHolder(view);
+    public DisciplinaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_disciplina, parent, false);
+        return new DisciplinaViewHolder(view);
     }
 
     @Override
@@ -66,20 +60,13 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
         }
     }
 
-    public class InstituicaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class DisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewNomeInstituicao;
-        private final TextView textViewNomeEstado;
-        private final TextView textViewNomeCidade;
-        private final CardView cardViewUserView;
+        private final TextView textViewNomeDisciplina;
 
-
-        public InstituicaoViewHolder(@NonNull View itemView) {
+        public DisciplinaViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
-            textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
-            textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
-            cardViewUserView = itemView.findViewById(R.id.userView);
+            textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeDisciplina);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
