@@ -7,6 +7,22 @@
     tools:context=".controller.InsituicaoDerivadoActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        android:contentDescription="@string/todo"
+        android:focusable="true"
+        android:onClick="buttonAddTurmaClicked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,4 +37,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.CadastrarTurmaActivity">
+
+    <EditText
+        android:id="@+id/editTextCadastroNomeTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="@string/nome"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextCadastroDtInicioTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Data Início da Vigência"
+        android:inputType="date"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCadastroNomeTurma"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextCadastroNomeTurma"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCadastroNomeTurma" />
+
+    <EditText
+        android:id="@+id/editTextCadastroDtFimTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Data Fim da Vigência"
+        android:inputType="date"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCadastroDtInicioTurma"
+        app:layout_constraintStart_toStartOf="@+id/editTextCadastroDtInicioTurma"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCadastroDtInicioTurma" />
+
+    <EditText
+        android:id="@+id/editTextCadastroSerieTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Série"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCadastroDtFimTurma"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextCadastroDtFimTurma"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCadastroDtFimTurma" />
+
+    <Button
+        android:id="@+id/btnCadastrarTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:onClick="buttonSalvarClicked"
+        android:text="@string/salvar"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCadastroSerieTurma"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/editTextCadastroSerieTurma"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCadastroSerieTurma" />
+</androidx.constraintlayout.widget.ConstraintLayout>

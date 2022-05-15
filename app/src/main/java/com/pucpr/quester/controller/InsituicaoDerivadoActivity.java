@@ -31,4 +31,8 @@ public class InsituicaoDerivadoActivity extends AppCompatActivity {
         Intent i = new Intent(InsituicaoDerivadoActivity.this, CadastrarUsuarioActivity.class);
         startActivity(i);
     }
+    public void buttonAddTurmaClicked(View view){
+        Intent i = new Intent(InsituicaoDerivadoActivity.this, TurmaActivity.class);
+        startActivity(i);
+    }
 }

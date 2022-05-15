@@ -6,36 +6,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.model.Turma;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, DisciplinaAdapter.DisciplinaViewHolder> {
+public class TurmaAdapter extends FirestorePagingAdapter<Turma, TurmaAdapter.TurmaViewHolder> {
 
     private final OnListItemClick onListItemClick;
 
-    public DisciplinaAdapter(@NonNull FirestorePagingOptions<Disciplina> options, OnListItemClick onListItemClick) {
+    public TurmaAdapter(@NonNull FirestorePagingOptions<Turma> options, OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull DisciplinaViewHolder holder, int position, @NonNull Disciplina model) {
-        holder.textViewNomeDisciplina.setText(model.getNome());
+    protected void onBindViewHolder(@NonNull TurmaViewHolder holder, int position, @NonNull Turma model) {
+        holder.textViewNomeTurma.setText(model.getNomeTurma());
 //        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
     }
 
     @NonNull
     @Override
-    public DisciplinaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_disciplina, parent, false);
-        return new DisciplinaViewHolder(view);
+    public TurmaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_turma, parent, false);
+        return new TurmaViewHolder(view);
     }
 
     @Override
@@ -60,13 +60,13 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
         }
     }
 
-    public class DisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TurmaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewNomeDisciplina;
+        private final TextView textViewNomeTurma;
 
-        public DisciplinaViewHolder(@NonNull View itemView) {
+        public TurmaViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeTurma);
+            textViewNomeTurma = itemView.findViewById(R.id.textViewNomeTurma);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
