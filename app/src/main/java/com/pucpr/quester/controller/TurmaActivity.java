@@ -41,6 +41,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
     FirebaseAuth firebaseAuth;
 
     String idInstituicao;
+    String nomeInstituicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             idInstituicao = extras.getString("id_instituicao");
+            nomeInstituicao = extras.getString("nome_instituicao");
         }
 
         popularRecyclerView();
@@ -109,6 +111,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         Intent i = new Intent(TurmaActivity.this, CadastrarTurmaActivity.class);
         i.putExtra("id", "none");
         i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
 
@@ -118,6 +121,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         Intent i = new Intent(TurmaActivity.this, CadastrarTurmaActivity.class);
         i.putExtra("id", snapshot.getId());
         i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
 
@@ -152,5 +156,13 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(TurmaActivity.this, InsituicaoDerivadoActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
     }
 }

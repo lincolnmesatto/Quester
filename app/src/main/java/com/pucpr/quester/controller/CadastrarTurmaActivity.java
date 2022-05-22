@@ -36,6 +36,7 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
 
     String id;
     String idInstituicao;
+    String nomeInstituicao;
 
     EditText editTextCadastroNomeTurma;
     EditText editTextCadastroDtInicioTurma;
@@ -71,6 +72,7 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
         if(extras != null){
             id = extras.getString("id");
             idInstituicao = extras.getString("id_instituicao");
+            nomeInstituicao = extras.getString("nome_instituicao");
 
             if(!id.equals("none")) {
                 DocumentReference docRef = firestore.collection("turmas").document(id);
@@ -131,6 +133,15 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
 
         Intent i = new Intent(CadastrarTurmaActivity.this, TurmaActivity.class);
         i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(CadastrarTurmaActivity.this, TurmaActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
 }
