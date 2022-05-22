@@ -85,7 +85,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
                 .setPageSize(10)
                 .build();
 
-        Query query =  firestore.collection("turmas");
+        Query query =  firestore.collection("turmas").whereEqualTo("idInstituicao", idInstituicao);
         FirestorePagingOptions<Turma> options = new FirestorePagingOptions.Builder<Turma>()
                 .setLifecycleOwner(this)
                 .setQuery(query, config, new SnapshotParser<Turma>() {
