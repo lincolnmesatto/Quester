@@ -9,16 +9,19 @@ public class Turma {
     private String dataInicioVigencia;
     private String dataFimVigencia;
     private int serie;
+    private String idInstituicao;
 
     public Turma() {
     }
 
-    public Turma(String id, String nomeTurma, String dataInicioVigencia, String dataFimVigencia, int serie) {
+    public Turma(String id, String nomeTurma, String dataInicioVigencia, String dataFimVigencia, int serie,
+                 String idInstituicao) {
         this.id = id;
         this.nomeTurma = nomeTurma;
         this.dataInicioVigencia = dataInicioVigencia;
         this.dataFimVigencia = dataFimVigencia;
         this.serie = serie;
+        this.idInstituicao = idInstituicao;
     }
 
     public String getId() {
@@ -59,5 +62,14 @@ public class Turma {
 
     public void setSerie(int serie) {
         this.serie = serie;
+    }
+
+
+    public String getIdInstituicao() {
+        return idInstituicao;
+    }
+
+    public void setIdInstituicao(String idInstituicao) {
+        this.idInstituicao = idInstituicao;
     }
 }

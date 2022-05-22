@@ -40,6 +40,8 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
 
+    String idInstituicao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,11 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            idInstituicao = extras.getString("id_instituicao");
+        }
 
         popularRecyclerView();
 
@@ -100,6 +107,8 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
     }
     public void btnAddTurmaClicked(View view) {
         Intent i = new Intent(TurmaActivity.this, CadastrarTurmaActivity.class);
+        i.putExtra("id", "none");
+        i.putExtra("id_instituicao", idInstituicao);
         startActivity(i);
     }
 
@@ -108,18 +117,12 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         Log.d("ITEM_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
         Intent i = new Intent(TurmaActivity.this, CadastrarTurmaActivity.class);
         i.putExtra("id", snapshot.getId());
+        i.putExtra("id_instituicao", idInstituicao);
         startActivity(i);
     }
 
     @Override
     public boolean onItemLongClick(DocumentSnapshot snapshot, int posicao) {
-        Log.d("ITEM_LONG_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());
-        Intent i = new Intent(TurmaActivity.this, CadastrarTurmaActivity.class);
-        i.putExtra("id_turma", snapshot.getId());
-        Turma turma = snapshot.toObject(Turma.class);
-        i.putExtra("nome_turma", turma.getNomeTurma());
-        startActivity(i);
-
         return true;
     }
 

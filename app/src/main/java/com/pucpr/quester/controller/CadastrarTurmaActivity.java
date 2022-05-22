@@ -32,10 +32,11 @@ import com.pucpr.quester.model.Turma;
 import java.util.List;
 
 public class CadastrarTurmaActivity extends AppCompatActivity {
-
     FirebaseFirestore firestore;
 
     String id;
+    String idInstituicao;
+
     EditText editTextCadastroNomeTurma;
     EditText editTextCadastroDtInicioTurma;
     EditText editTextCadastroDtFimTurma;
@@ -69,34 +70,37 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = extras.getString("id");
+            idInstituicao = extras.getString("id_instituicao");
 
-            DocumentReference docRef = firestore.collection("turmas").document(id);
-            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Turma t = documentSnapshot.toObject(Turma.class);
+            if(!id.equals("none")) {
+                DocumentReference docRef = firestore.collection("turmas").document(id);
+                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Turma t = documentSnapshot.toObject(Turma.class);
 
-                    editTextCadastroNomeTurma.setText(t.getNomeTurma());
-                    editTextCadastroDtInicioTurma.setText(t.getDataInicioVigencia().toString());
-                    editTextCadastroDtFimTurma.setText(t.getDataInicioVigencia().toString());
-                    editTextCadastroSerieTurma.setText(t.getSerie());
-                }
-            });
-
+                        editTextCadastroNomeTurma.setText(t.getNomeTurma());
+                        editTextCadastroDtInicioTurma.setText(t.getDataInicioVigencia());
+                        editTextCadastroDtFimTurma.setText(t.getDataFimVigencia());
+                        editTextCadastroSerieTurma.setText(Integer.toString(t.getSerie()));
+                    }
+                });
+            }
         }else{
             id = "none";
         }
     }
     public void buttonSalvarClicked(View view) {
 
-        if (id == "none") {
+        if (id.equals("none")) {
             DocumentReference ref = firestore.collection("turmas").document();
             id = ref.getId();
         }
-        Turma turma = new Turma(id, editTextCadastroNomeTurma.getText().toString(), editTextCadastroDtInicioTurma.getText().toString(),
-                editTextCadastroDtFimTurma.getText().toString(), Integer.valueOf(editTextCadastroSerieTurma.getText().toString()));
 
         if(mAwesomeValidation.validate()){
+            Turma turma = new Turma(id, editTextCadastroNomeTurma.getText().toString(), editTextCadastroDtInicioTurma.getText().toString(),
+                    editTextCadastroDtFimTurma.getText().toString(), Integer.valueOf(editTextCadastroSerieTurma.getText().toString()), idInstituicao);
+
             criarTurma(turma);
         }else {
             Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
@@ -125,7 +129,8 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
                     }
                 });
 
-        Intent i = new Intent(CadastrarTurmaActivity.this, InsituicaoDerivadoActivity.class);
+        Intent i = new Intent(CadastrarTurmaActivity.this, TurmaActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
         startActivity(i);
     }
 }
