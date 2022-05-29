@@ -18,7 +18,7 @@
         >
 
         <TextView
-            android:id="@+id/textViewNomeTurma"
+            android:id="@+id/textViewNomeDisciplina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

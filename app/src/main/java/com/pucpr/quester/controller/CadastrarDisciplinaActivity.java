@@ -115,4 +115,10 @@ public class CadastrarDisciplinaActivity extends AppCompatActivity {
         Intent i = new Intent(CadastrarDisciplinaActivity.this, DisciplinaActivity.class);
         startActivity(i);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(CadastrarDisciplinaActivity.this, DisciplinaActivity.class);
+        startActivity(i);
+    }
 }

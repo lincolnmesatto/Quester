@@ -11,31 +11,31 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.model.Recompensa;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, DisciplinaAdapter.DisciplinaViewHolder> {
+public class RecompensaAdapter extends FirestorePagingAdapter<Recompensa, RecompensaAdapter.RecompensaViewHolder> {
+    private final RecompensaAdapter.OnListItemClick onListItemClick;
 
-    private final OnListItemClick onListItemClick;
-
-    public DisciplinaAdapter(@NonNull FirestorePagingOptions<Disciplina> options, OnListItemClick onListItemClick) {
+    public RecompensaAdapter(@NonNull FirestorePagingOptions<Recompensa> options, RecompensaAdapter.OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull DisciplinaViewHolder holder, int position, @NonNull Disciplina model) {
-        holder.textViewNomeDisciplina.setText(model.getNome());
+    protected void onBindViewHolder(@NonNull RecompensaAdapter.RecompensaViewHolder holder, int position, @NonNull Recompensa model) {
+        holder.textViewDescricaoRecompensa.setText(model.getDescricao());
+        holder.textViewLvl.setText("Nível: "+model.getLevelAdquire());
 //        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
     }
 
     @NonNull
     @Override
-    public DisciplinaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_disciplina, parent, false);
-        return new DisciplinaViewHolder(view);
+    public RecompensaAdapter.RecompensaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_recompensa, parent, false);
+        return new RecompensaAdapter.RecompensaViewHolder(view);
     }
 
     @Override
@@ -60,13 +60,15 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
         }
     }
 
-    public class DisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecompensaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewNomeDisciplina;
+        private final TextView textViewDescricaoRecompensa;
+        private final TextView textViewLvl;
 
-        public DisciplinaViewHolder(@NonNull View itemView) {
+        public RecompensaViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeDisciplina);
+            textViewDescricaoRecompensa = itemView.findViewById(R.id.textViewDescricaoRecompensa);
+            textViewLvl = itemView.findViewById(R.id.textViewLvl);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,15 +76,6 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
                     if(onListItemClick == null)
                         return;
                     onListItemClick.onItemClick(getItem(getAdapterPosition()), getAdapterPosition());
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(onListItemClick == null)
-                        return false;
-
-                    return onListItemClick.onItemLongClick(getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -95,6 +88,5 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
 
     public interface OnListItemClick {
         void onItemClick(DocumentSnapshot snapshot, int posicao);
-        boolean onItemLongClick(DocumentSnapshot snapshot, int posicao);
     }
 }

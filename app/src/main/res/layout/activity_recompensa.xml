@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.DisciplinaActivity">
+    tools:context=".controller.RecompensaActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDisciplina"
+        android:id="@+id/recyclerViewRecompensa"
         android:layout_width="364dp"
         android:layout_height="570dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.484" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddDisciplina"
+        android:id="@+id/btnAddRecompensa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -26,9 +26,9 @@
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
-        android:onClick="btnAddDisciplinaClicked"
+        android:onClick="btnAddRecompensaClicked"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDisciplina"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewRecompensa"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

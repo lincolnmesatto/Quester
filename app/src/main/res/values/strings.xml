@@ -27,4 +27,7 @@
     <string name="data_nascimento">Data Nascimento</string>
     <string name="genero">Gênero</string>
     <string name="perfil">Perfil</string>
+    <string name="nivel">Nível</string>
+    <string name="descricao">Descrição</string>
+    <string name="level_adquire">Nível de Aquisição</string>
 </resources>

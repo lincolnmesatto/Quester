@@ -31,8 +31,16 @@ public class InsituicaoDerivadoActivity extends AppCompatActivity {
         Intent i = new Intent(InsituicaoDerivadoActivity.this, CadastrarUsuarioActivity.class);
         startActivity(i);
     }
+
     public void buttonAddTurmaClicked(View view){
         Intent i = new Intent(InsituicaoDerivadoActivity.this, TurmaActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    public void buttonAddRecompensaClicked(View view){
+        Intent i = new Intent(InsituicaoDerivadoActivity.this, RecompensaActivity.class);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
