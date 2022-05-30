@@ -21,9 +21,9 @@
     <string name="err_bairro">Bairro Invalido</string>
     <string name="err_email">E-mail Inválido</string>
     <string name="err_vazio">Campo Obrigatório</string>
-    <string name="cpf">cpf</string>
+    <string name="CPF">CPF</string>
     <string name="nome">Nome</string>
-    <string name="email">email</string>
+    <string name="email">E-mail</string>
     <string name="data_nascimento">Data Nascimento</string>
     <string name="genero">Gênero</string>
     <string name="perfil">Perfil</string>
