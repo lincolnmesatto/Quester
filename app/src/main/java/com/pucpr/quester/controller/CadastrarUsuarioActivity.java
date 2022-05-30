@@ -9,12 +9,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.pucpr.quester.R;
+import com.pucpr.quester.model.Aluno;
 import com.pucpr.quester.model.Instituicao;
+import com.pucpr.quester.model.Professor;
 import com.pucpr.quester.model.Usuario;
 
 import android.content.Intent;
@@ -34,6 +37,9 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseFirestore firestore;
 
+    String idInstituicao;
+    String nomeInstituicao;
+
     EditText editTextCpf;
     EditText editTextNomeUsuario;
     EditText editTextEmailUsuario;
@@ -50,6 +56,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            idInstituicao = extras.getString("id_instituicao");
+            nomeInstituicao = extras.getString("nome_instituicao");
+        }
 
         editTextCpf = findViewById(R.id.editTextCpf);
         spinnerPerfil = findViewById(R.id.spinnerPerfil);
@@ -100,8 +112,21 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
     }
 
     void criarUsuario(Usuario usuario) {
-        firestore.collection("usuarios").
-                document(usuario.getIdUsuario()).set(usuario);
+        firestore.collection("usuarios").document(usuario.getIdUsuario()).set(usuario);
+
+        if(usuario.getPerfil() == 1){
+            DocumentReference ref = firestore.collection("alunos").document();
+            String id = ref.getId();
+
+            Aluno aluno = new Aluno(id, usuario.getIdUsuario(), idInstituicao, 0f, 1);
+            firestore.collection("alunos").document(aluno.getId()).set(aluno);
+        }else{
+            DocumentReference ref = firestore.collection("professores").document();
+            String id = ref.getId();
+
+            Professor professor = new Professor(id, usuario.getIdUsuario(), idInstituicao);
+            firestore.collection("professores").document(professor.getId()).set(professor);
+        }
 
         firestore.collection("usuarios").
                 document(usuario.getIdUsuario()).
@@ -122,6 +147,16 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                 });
 
         Intent i = new Intent(CadastrarUsuarioActivity.this, InsituicaoDerivadoActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(CadastrarUsuarioActivity.this, InsituicaoDerivadoActivity.class);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
 }
