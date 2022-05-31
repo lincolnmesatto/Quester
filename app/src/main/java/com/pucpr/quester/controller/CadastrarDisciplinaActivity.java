@@ -40,6 +40,8 @@ public class CadastrarDisciplinaActivity extends AppCompatActivity {
     Button btnSalvarDisciplina;
     AwesomeValidation mAwesomeValidation;
 
+    String oldName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,17 +92,25 @@ public class CadastrarDisciplinaActivity extends AppCompatActivity {
         String isVerificar = btnSalvarDisciplina.getText().toString();
         if(isVerificar.equals(VERIFICAR)){
             verificarExistencia();
+            oldName = editTextNomeDisciplina.getText().toString();
         }else{
-            if (id == "none") {
-                DocumentReference ref = firestore.collection("disciplinas").document();
-                id = ref.getId();
-            }
-            Disciplina disciplina = new Disciplina(id, editTextNomeDisciplina.getText().toString(), 1);
+            String name = editTextNomeDisciplina.getText().toString();
 
-            if(mAwesomeValidation.validate()){
-                criarDisciplina(disciplina);
-            }else {
-                Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+            if(!name.equals(oldName)){
+                verificarExistencia();
+                oldName = name;
+            }else{
+                if (id == "none") {
+                    DocumentReference ref = firestore.collection("disciplinas").document();
+                    id = ref.getId();
+                }
+                Disciplina disciplina = new Disciplina(id, editTextNomeDisciplina.getText().toString(), 1);
+
+                if(mAwesomeValidation.validate()){
+                    criarDisciplina(disciplina);
+                }else {
+                    Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
