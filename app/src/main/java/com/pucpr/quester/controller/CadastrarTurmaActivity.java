@@ -29,6 +29,9 @@ import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Turma;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CadastrarTurmaActivity extends AppCompatActivity {
@@ -93,19 +96,29 @@ public class CadastrarTurmaActivity extends AppCompatActivity {
         }
     }
     public void buttonSalvarClicked(View view) {
+        try {
+            if (id.equals("none")) {
+                DocumentReference ref = firestore.collection("turmas").document();
+                id = ref.getId();
+            }
 
-        if (id.equals("none")) {
-            DocumentReference ref = firestore.collection("turmas").document();
-            id = ref.getId();
-        }
+            if(mAwesomeValidation.validate()){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date dataDe = dateFormat.parse(editTextCadastroDtInicioTurma.getText().toString());
+                Date dataPara = dateFormat.parse(editTextCadastroDtFimTurma.getText().toString());
+                if(dataPara.before(dataDe)){
+                    Toast.makeText(getApplicationContext(), "A Data Fim da Vigência deve ser maior que a Data Início",Toast.LENGTH_LONG).show();
+                }else {
+                    Turma turma = new Turma(id, editTextCadastroNomeTurma.getText().toString(), editTextCadastroDtInicioTurma.getText().toString(),
+                            editTextCadastroDtFimTurma.getText().toString(), Integer.valueOf(editTextCadastroSerieTurma.getText().toString()), idInstituicao);
 
-        if(mAwesomeValidation.validate()){
-            Turma turma = new Turma(id, editTextCadastroNomeTurma.getText().toString(), editTextCadastroDtInicioTurma.getText().toString(),
-                    editTextCadastroDtFimTurma.getText().toString(), Integer.valueOf(editTextCadastroSerieTurma.getText().toString()), idInstituicao);
-
-            criarTurma(turma);
-        }else {
-            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+                    criarTurma(turma);
+                }
+            }else {
+                Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
