@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,24 +8,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Recompensa;
 import com.pucpr.quester.model.Turma;
 
-public class CadastrarRecompensaActivity extends AppCompatActivity {
+import java.util.List;
 
+public class CadastrarRecompensaActivity extends AppCompatActivity {
+    private final String VERIFICAR = "Verficar";
     FirebaseFirestore firestore;
 
     String id;
@@ -33,8 +41,11 @@ public class CadastrarRecompensaActivity extends AppCompatActivity {
 
     EditText editTextDescricaoDisciplina;
     EditText editTextLvlAdquire;
+    Button btnSalvarRecompensa;
 
     AwesomeValidation mAwesomeValidation;
+
+    String oldLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +87,63 @@ public class CadastrarRecompensaActivity extends AppCompatActivity {
             id = "none";
         }
     }
+    public void changeVisibility(int visibility) {
+        if(visibility != View.INVISIBLE){
+            btnSalvarRecompensa.setText("Salvar");
+        }else{
+            btnSalvarRecompensa.setText(VERIFICAR);
+        }
+    }
 
     public void buttonSalvarClicked(View view) {
+       String isVerificar = btnSalvarRecompensa.getText().toString();
+       if(isVerificar.equals(VERIFICAR)){
+           verificarExistencia();
+           oldLevel = editTextLvlAdquire.getText().toString();
+       }else{
+           String level = editTextLvlAdquire.getText().toString();
+           if(!level.equals(oldLevel)){
+               verificarExistencia();
+               oldLevel = level;
+           }else{
+               if (id.equals("none")) {
+                   DocumentReference ref = firestore.collection("recompensas").document();
+                   id = ref.getId();
+               }
 
-        if (id.equals("none")) {
-            DocumentReference ref = firestore.collection("recompensas").document();
-            id = ref.getId();
-        }
+               if(mAwesomeValidation.validate()){
+                   Recompensa recompensa = new Recompensa(id, idInstituicao, editTextDescricaoDisciplina.getText().toString(),
+                           Integer.valueOf(editTextLvlAdquire.getText().toString()));
 
-        if(mAwesomeValidation.validate()){
-            Recompensa recompensa = new Recompensa(id, idInstituicao, editTextDescricaoDisciplina.getText().toString(),
-                    Integer.valueOf(editTextLvlAdquire.getText().toString()));
+                   criarRecompensa(recompensa);
+               }else {
+                   Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+               }
+           }
 
-            criarRecompensa(recompensa);
-        }else {
-            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+       }
+
+    }
+
+    public void verificarExistencia(){
+        String level = editTextLvlAdquire.getText().toString();
+
+        if(!level.equals("")){
+            firestore.collection("recompensas").whereEqualTo("levelAdquire", level).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            List<Recompensa> lista = task.getResult().toObjects(Recompensa.class);
+                            if (lista.size() == 0)
+                                changeVisibility(View.VISIBLE);
+                            else {
+                                Toast.makeText(getApplicationContext(), "Recompensa " + level + " já cadastrada.", Toast.LENGTH_LONG).show();
+                                changeVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+        }else{
+            Toast.makeText(getApplicationContext(), "Informe o seu level", Toast.LENGTH_LONG).show();
         }
     }
 

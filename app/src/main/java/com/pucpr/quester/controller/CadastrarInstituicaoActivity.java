@@ -67,7 +67,7 @@ public class CadastrarInstituicaoActivity extends AppCompatActivity {
         editTextComplemento = findViewById(R.id.editTextComplemento);
         editTextNumero = findViewById(R.id.editTextNumero);
 
-        buttonSalvar = findViewById(R.id.buttonSalvar);
+        buttonSalvar = findViewById(R.id.btnSalvarRecompensa);
 
         //Validacao Style
         mAwesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
