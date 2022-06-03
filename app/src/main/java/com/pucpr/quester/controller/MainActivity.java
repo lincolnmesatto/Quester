@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
         String email = editTextLogin.getText().toString().trim();
         String senha = editTextPassword.getText().toString();
 
-        if(mAwesomeValidation.validate()){
-            loginUser(email, senha);
-        }else {
-            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
-        }
-//        loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
+//        if(mAwesomeValidation.validate()){
+//            loginUser(email, senha);
+//        }else {
+//            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
+//        }
+        loginUser("lincoln.mesatto@gmail.com", "q1w2e3r4");
     }
 
     public void loginUser(String login, String senha) {

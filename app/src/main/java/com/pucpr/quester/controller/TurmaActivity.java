@@ -26,6 +26,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Turma;
 
 import java.util.ArrayList;
@@ -127,6 +128,12 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
 
     @Override
     public boolean onItemLongClick(DocumentSnapshot snapshot, int posicao) {
+        Intent i = new Intent(TurmaActivity.this, TurmaDerivadoActivity.class);
+        i.putExtra("id", snapshot.getId());
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+
         return true;
     }
 

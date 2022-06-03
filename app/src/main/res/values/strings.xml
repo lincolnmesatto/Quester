@@ -30,4 +30,7 @@
     <string name="nivel">Nível</string>
     <string name="descricao">Descrição</string>
     <string name="level_adquire">Nível de Aquisição</string>
+    <string name="alunos">Alunos</string>
+    <string name="disciplinas">Disciplinas</string>
+    <string name="professores">Professores</string>
 </resources>

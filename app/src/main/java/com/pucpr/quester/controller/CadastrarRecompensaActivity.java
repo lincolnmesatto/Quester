@@ -56,6 +56,7 @@ public class CadastrarRecompensaActivity extends AppCompatActivity {
 
         editTextDescricaoDisciplina = findViewById(R.id.editTextDescricaoDisciplina);
         editTextLvlAdquire = findViewById(R.id.editTextLvlAdquire);
+        btnSalvarRecompensa = findViewById(R.id.btnSalvarRecompensa);
 
         mAwesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
         mAwesomeValidation.setColor(Color.RED);
@@ -86,7 +87,10 @@ public class CadastrarRecompensaActivity extends AppCompatActivity {
         }else{
             id = "none";
         }
+
+        changeVisibility(id.equals("none") ? View.INVISIBLE : View.VISIBLE);
     }
+
     public void changeVisibility(int visibility) {
         if(visibility != View.INVISIBLE){
             btnSalvarRecompensa.setText("Salvar");
@@ -126,10 +130,10 @@ public class CadastrarRecompensaActivity extends AppCompatActivity {
     }
 
     public void verificarExistencia(){
-        String level = editTextLvlAdquire.getText().toString();
+        Integer level = Integer.valueOf(editTextLvlAdquire.getText().toString());
 
         if(!level.equals("")){
-            firestore.collection("recompensas").whereEqualTo("levelAdquire", level).get()
+            firestore.collection("recompensas").whereEqualTo("idInstituicao", idInstituicao).whereEqualTo("levelAdquire", level).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
