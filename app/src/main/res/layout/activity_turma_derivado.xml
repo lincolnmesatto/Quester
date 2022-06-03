@@ -7,11 +7,12 @@
     tools:context=".controller.TurmaDerivadoActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardViewAluno"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/colorPrimaryDark"
+        android:onClick="cardAlunoClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,34 +29,37 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardViewDisciplina"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/corCardImpar"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewAluno"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintStart_toStartOf="@+id/cardViewAluno"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAluno">
 
         <TextView
             android:id="@+id/turmaDerDisciplina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:onClick="cardDisciplinaClicked"
             android:text="@string/disciplinas"
             android:textColor="@color/white"
             android:textSize="48sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewProfessor"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/design_default_color_error"
-        app:layout_constraintEnd_toEndOf="@+id/cardView2"
-        app:layout_constraintStart_toStartOf="@+id/cardView2"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        android:onClick="cardProfessorClicked"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewDisciplina"
+        app:layout_constraintStart_toStartOf="@+id/cardViewDisciplina"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDisciplina">
 
         <TextView
             android:id="@+id/turmaDerProfessor"

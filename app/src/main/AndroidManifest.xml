@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quester">
         <activity
+            android:name=".controller.TurmaProfessorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.TurmaDisciplinaActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.TurmaAlunoActivity"
             android:exported="false" />
         <activity

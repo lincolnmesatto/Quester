@@ -41,4 +41,20 @@ public class TurmaDerivadoActivity extends AppCompatActivity {
         i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
+
+    public void cardDisciplinaClicked(View view) {
+        Intent i = new Intent(TurmaDerivadoActivity.this, TurmaDisciplinaActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    public void cardProfessorClicked(View view) {
+        Intent i = new Intent(TurmaDerivadoActivity.this, TurmaProfessorActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
 }

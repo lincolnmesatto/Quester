@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/colorPrimaryDark"
@@ -19,18 +19,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/turmaDerAluno"
+            android:id="@+id/instDerUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/alunos"
+            android:text="@string/usuarios"
             android:textColor="@color/white"
             android:textSize="48sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="70dp"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/corCardImpar"
@@ -41,17 +41,17 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <TextView
-            android:id="@+id/turmaDerDisciplina"
+            android:id="@+id/instDerTurma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/disciplinas"
+            android:text="@string/turmas"
             android:textColor="@color/white"
             android:textSize="48sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="70dp"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/design_default_color_error"
@@ -61,11 +61,11 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
         <TextView
-            android:id="@+id/turmaDerProfessor"
+            android:id="@+id/instDerRecompensa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/professores"
+            android:text="@string/recompensas"
             android:textColor="@color/white"
             android:textSize="48sp" />
     </androidx.cardview.widget.CardView>

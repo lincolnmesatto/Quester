@@ -33,4 +33,7 @@
     <string name="alunos">Alunos</string>
     <string name="disciplinas">Disciplinas</string>
     <string name="professores">Professores</string>
+    <string name="usuarios">Usuários</string>
+    <string name="turmas">Turmas</string>
+    <string name="recompensas">Recompensas</string>
 </resources>
