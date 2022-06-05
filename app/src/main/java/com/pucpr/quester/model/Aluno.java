@@ -1,5 +1,7 @@
 package com.pucpr.quester.model;
 
+import java.util.List;
+
 public class Aluno {
     private String id;
     private String idUsuario;
@@ -7,14 +9,17 @@ public class Aluno {
     private Float xp;
     private int level;
 
+    private List<String> turmas;
+
     public Aluno(){}
 
-    public Aluno(String id, String idUsuario, String idInsituicao, Float xp, int level) {
+    public Aluno(String id, String idUsuario, String idInsituicao, Float xp, int level, List<String> turmas) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idInsituicao = idInsituicao;
         this.xp = xp;
         this.level = level;
+        this.turmas = turmas;
     }
 
     public String getId() {
@@ -55,5 +60,13 @@ public class Aluno {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public List<String> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<String> turmas) {
+        this.turmas = turmas;
     }
 }

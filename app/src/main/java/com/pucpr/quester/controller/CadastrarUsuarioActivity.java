@@ -29,6 +29,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class CadastrarUsuarioActivity extends AppCompatActivity {
@@ -118,7 +120,10 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             DocumentReference ref = firestore.collection("alunos").document();
             String id = ref.getId();
 
-            Aluno aluno = new Aluno(id, usuario.getIdUsuario(), idInstituicao, 0f, 1);
+            List<String> turmas = new ArrayList<>();
+            turmas.add("-");
+
+            Aluno aluno = new Aluno(id, usuario.getIdUsuario(), idInstituicao, 0f, 1, turmas);
             firestore.collection("alunos").document(aluno.getId()).set(aluno);
         }else{
             DocumentReference ref = firestore.collection("professores").document();

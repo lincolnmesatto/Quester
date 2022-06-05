@@ -36,4 +36,6 @@
     <string name="usuarios">Usuários</string>
     <string name="turmas">Turmas</string>
     <string name="recompensas">Recompensas</string>
+    <string name="disponiveis">Disponíveis</string>
+    <string name="vinculados">Vinculados</string>
 </resources>

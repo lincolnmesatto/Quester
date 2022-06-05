@@ -57,4 +57,13 @@ public class TurmaDerivadoActivity extends AppCompatActivity {
         i.putExtra("nome_instituicao", nomeInstituicao);
         startActivity(i);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(TurmaDerivadoActivity.this, TurmaActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
 }

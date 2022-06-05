@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CadastrarDisciplinaActivity extends AppCompatActivity {
@@ -104,7 +105,12 @@ public class CadastrarDisciplinaActivity extends AppCompatActivity {
                     DocumentReference ref = firestore.collection("disciplinas").document();
                     id = ref.getId();
                 }
-                Disciplina disciplina = new Disciplina(id, editTextNomeDisciplina.getText().toString(), 1);
+
+                List<String> turmas = new ArrayList<>();
+                turmas.add("-");
+
+                Disciplina disciplina = new Disciplina(id, editTextNomeDisciplina.getText().toString(), 1,
+                        turmas);
 
                 if(mAwesomeValidation.validate()){
                     criarDisciplina(disciplina);
