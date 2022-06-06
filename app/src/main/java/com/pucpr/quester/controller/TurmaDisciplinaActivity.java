@@ -173,8 +173,13 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
 
     @Override
     public void onItemClick(DocumentSnapshot snapshot, int posicao) {
+        Intent i = new Intent(TurmaDisciplinaActivity.this, TurmaProfessorActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
         Disciplina d = snapshot.toObject(Disciplina.class);
-        d.getId();
+        i.putExtra("id_disciplina", d.getId());
+        startActivity(i);
     }
 
     @Override

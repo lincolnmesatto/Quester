@@ -18,6 +18,7 @@ import com.pucpr.quester.R;
 import com.pucpr.quester.model.Aluno;
 import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Professor;
+import com.pucpr.quester.model.TurmaDisciplinaModel;
 import com.pucpr.quester.model.Usuario;
 
 import android.content.Intent;
@@ -129,7 +130,11 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             DocumentReference ref = firestore.collection("professores").document();
             String id = ref.getId();
 
-            Professor professor = new Professor(id, usuario.getIdUsuario(), idInstituicao);
+            List<TurmaDisciplinaModel> ltdm = new ArrayList<>();
+            TurmaDisciplinaModel tdm = new TurmaDisciplinaModel("-","-");
+            ltdm.add(tdm);
+
+            Professor professor = new Professor(id, usuario.getIdUsuario(), idInstituicao, ltdm);
             firestore.collection("professores").document(professor.getId()).set(professor);
         }
 
