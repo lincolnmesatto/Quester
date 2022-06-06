@@ -129,7 +129,7 @@ public class TurmaProfessorActivity extends AppCompatActivity implements TurmaPr
         for (Professor professor: professores) {
             boolean add = true;
             for (TurmaDisciplinaModel tdm: professor.getTdm()) {
-                if(tdm.getIdTurma().equals(id)){
+                if(tdm.getIdTurma().equals(id) && tdm.getIdDisciplina().equals(idDisciplina)){
                     add = false;
                     break;
                 }
@@ -246,7 +246,7 @@ public class TurmaProfessorActivity extends AppCompatActivity implements TurmaPr
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(TurmaProfessorActivity.this, TurmaDerivadoActivity.class);
+        Intent i = new Intent(TurmaProfessorActivity.this, TurmaDisciplinaActivity.class);
         i.putExtra("id", id);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);

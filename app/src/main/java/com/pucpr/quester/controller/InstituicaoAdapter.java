@@ -33,7 +33,7 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
         holder.textViewNomeEstado.setText(model.getEstado());
         holder.textViewNomeCidade.setText(model.getCidade());
 
-        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
 
     }
 

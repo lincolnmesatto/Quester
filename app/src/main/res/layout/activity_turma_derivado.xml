@@ -50,24 +50,4 @@
             android:textSize="48sp" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewProfessor"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/design_default_color_error"
-        android:onClick="cardProfessorClicked"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewDisciplina"
-        app:layout_constraintStart_toStartOf="@+id/cardViewDisciplina"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewDisciplina">
-
-        <TextView
-            android:id="@+id/turmaDerProfessor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/professores"
-            android:textColor="@color/white"
-            android:textSize="48sp" />
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
