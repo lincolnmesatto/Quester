@@ -238,10 +238,11 @@ public class TurmaProfessorActivity extends AppCompatActivity implements TurmaPr
         firestore.collection("professores").
                 document(professor.getId()).set(professor);
 
-        popularRecyclerView2();
-        popularRecyclerView();
-
-        turmaProfessorAdapter.notifyItemRemoved(posicao);
+//        popularRecyclerView2();
+//        popularRecyclerView();
+//
+//        turmaProfessorAdapter.notifyItemRemoved(posicao);
+        voltaAnterior();
     }
 
     @Override
@@ -250,6 +251,16 @@ public class TurmaProfessorActivity extends AppCompatActivity implements TurmaPr
         i.putExtra("id", id);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    public void voltaAnterior() {
+        Intent i = new Intent(TurmaProfessorActivity.this, TurmaDisciplinaActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        i.putExtra("redirecionar", "professor");
+        i.putExtra("id_disciplina", idDisciplina);
         startActivity(i);
     }
 }

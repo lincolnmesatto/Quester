@@ -17,6 +17,8 @@ public class TurmaDerivadoActivity extends AppCompatActivity {
     String idInstituicao;
     String nomeInstituicao;
 
+    String redirecionar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +27,30 @@ public class TurmaDerivadoActivity extends AppCompatActivity {
         setTitle("Turma");
 
         firestore = FirebaseFirestore.getInstance();
+        redirecionar = "none";
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             id = extras.getString("id");
             idInstituicao = extras.getString("id_instituicao");
             nomeInstituicao = extras.getString("nome_instituicao");
+            redirecionar = extras.getString("redirecionar");
+        }
+
+        if(!redirecionar.equals("none")){
+            if(redirecionar.equals("aluno")){
+                Intent i = new Intent(TurmaDerivadoActivity.this, TurmaAlunoActivity.class);
+                i.putExtra("id", id);
+                i.putExtra("id_instituicao", idInstituicao);
+                i.putExtra("nome_instituicao", nomeInstituicao);
+                startActivity(i);
+            }else if(redirecionar.equals("disciplina")){
+                Intent i = new Intent(TurmaDerivadoActivity.this, TurmaDisciplinaActivity.class);
+                i.putExtra("id", id);
+                i.putExtra("id_instituicao", idInstituicao);
+                i.putExtra("nome_instituicao", nomeInstituicao);
+                startActivity(i);
+            }
         }
     }
 
@@ -44,14 +64,6 @@ public class TurmaDerivadoActivity extends AppCompatActivity {
 
     public void cardDisciplinaClicked(View view) {
         Intent i = new Intent(TurmaDerivadoActivity.this, TurmaDisciplinaActivity.class);
-        i.putExtra("id", id);
-        i.putExtra("id_instituicao", idInstituicao);
-        i.putExtra("nome_instituicao", nomeInstituicao);
-        startActivity(i);
-    }
-
-    public void cardProfessorClicked(View view) {
-        Intent i = new Intent(TurmaDerivadoActivity.this, TurmaProfessorActivity.class);
         i.putExtra("id", id);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);

@@ -132,6 +132,7 @@ public class TurmaActivity extends AppCompatActivity implements TurmaAdapter.OnL
         i.putExtra("id", snapshot.getId());
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);
+        i.putExtra("redirecionar", "none");
         startActivity(i);
 
         return true;

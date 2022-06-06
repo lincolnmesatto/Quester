@@ -49,6 +49,9 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
     String idInstituicao;
     String nomeInstituicao;
 
+    String redirecionar;
+    String idDisciplinaBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,24 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
             id = extras.getString("id");
             idInstituicao = extras.getString("id_instituicao");
             nomeInstituicao = extras.getString("nome_instituicao");
+            redirecionar = extras.getString("redirecionar");
+            idDisciplinaBack = extras.getString("idDisciplinaBack");
+
+            if(redirecionar == null)
+                redirecionar = "none";
+            if(idDisciplinaBack == null)
+                idDisciplinaBack = "none";
+        }
+
+        if(!redirecionar.equals("none")){
+            if(redirecionar.equals("professor")){
+                Intent i = new Intent(TurmaDisciplinaActivity.this, TurmaProfessorActivity.class);
+                i.putExtra("id", id);
+                i.putExtra("id_instituicao", idInstituicao);
+                i.putExtra("nome_instituicao", nomeInstituicao);
+                i.putExtra("id_disciplina", idDisciplinaBack);
+                startActivity(i);
+            }
         }
 
         popularRecyclerView();
@@ -189,10 +210,11 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
         firestore.collection("disciplinas").
                 document(disciplina.getId()).set(disciplina);
 
-        popularRecyclerView2();
-        popularRecyclerView();
-
-        turmaDisciplinaAdapter.notifyItemRemoved(posicao);
+//        popularRecyclerView2();
+//        popularRecyclerView();
+//
+//        turmaDisciplinaAdapter.notifyItemRemoved(posicao);
+        voltaAnterior();
     }
 
     @Override
@@ -201,6 +223,15 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
         i.putExtra("id", id);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);
+        startActivity(i);
+    }
+
+    public void voltaAnterior() {
+        Intent i = new Intent(TurmaDisciplinaActivity.this, TurmaDerivadoActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        i.putExtra("redirecionar", "disciplina");
         startActivity(i);
     }
 }

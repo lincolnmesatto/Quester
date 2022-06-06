@@ -234,10 +234,11 @@ public class TurmaAlunoActivity extends AppCompatActivity implements TurmaAlunoA
         firestore.collection("alunos").
                 document(aluno.getId()).set(aluno);
 
-        popularRecyclerView2();
-        popularRecyclerView();
-
-        turmaAlunoAdapter.notifyItemRemoved(posicao);
+//        popularRecyclerView2();
+//        popularRecyclerView();
+//
+//        turmaAlunoAdapter.notifyItemRemoved(posicao);
+        voltaAnterior();
     }
 
     @Override
@@ -246,6 +247,16 @@ public class TurmaAlunoActivity extends AppCompatActivity implements TurmaAlunoA
         i.putExtra("id", id);
         i.putExtra("id_instituicao", idInstituicao);
         i.putExtra("nome_instituicao", nomeInstituicao);
+        i.putExtra("redirecionar", "none");
+        startActivity(i);
+    }
+
+    public void voltaAnterior() {
+        Intent i = new Intent(TurmaAlunoActivity.this, TurmaDerivadoActivity.class);
+        i.putExtra("id", id);
+        i.putExtra("id_instituicao", idInstituicao);
+        i.putExtra("nome_instituicao", nomeInstituicao);
+        i.putExtra("redirecionar", "aluno");
         startActivity(i);
     }
 }
