@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             if (firebaseUser != null) {
-                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(MainActivity.this, RedirectLoginActivity.class);
                                 startActivity(intent);
                             }
                         } else {

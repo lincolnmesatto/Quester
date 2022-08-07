@@ -165,4 +165,11 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        //firebaseAuth.signOut();
+        Intent i = new Intent(HomeActivity.this, MainActivity.class);
+        startActivity(i);
+    }
 }

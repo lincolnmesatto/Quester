@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quester">
         <activity
+            android:name=".controller.HomeProfessorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.HomeAlunoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.RedirectLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.TurmaProfessorActivity"
             android:exported="false" />
         <activity
@@ -62,8 +71,8 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
