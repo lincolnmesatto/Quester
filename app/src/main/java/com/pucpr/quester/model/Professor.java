@@ -3,7 +3,7 @@ package com.pucpr.quester.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Professor implements Serializable {
+public class Professor {
     private String id;
     private String idUsuario;
     private String idInsituicao;

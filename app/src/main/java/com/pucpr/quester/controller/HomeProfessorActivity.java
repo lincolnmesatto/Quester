@@ -90,12 +90,6 @@ public class HomeProfessorActivity extends AppCompatActivity implements Institui
                 }
             });
         }
-
-//        adapter = new InstituicaoHomeAdapter(this, instituicoes);
-//
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
     }
 
     void pouplarInstituicao(Professor p, Task<QuerySnapshot> t){
@@ -123,19 +117,23 @@ public class HomeProfessorActivity extends AppCompatActivity implements Institui
 
     @Override
     public void onItemClick(Instituicao instituicao, int posicao) {
-        Log.d("ITEM_CLICK", "Item clicado: "+posicao+ " ID = "+instituicao.getId());
-        Professor professor = new Professor();
+        List<TurmaDisciplinaModel> tdm = new ArrayList<>();
         for (Professor p : professores) {
             if(p.getIdInsituicao().equals(instituicao.getId())){
-                professor = p;
+                tdm.addAll(p.getTdm());
             }
         }
 
-        Intent i = new Intent(HomeProfessorActivity.this, ProfessorTurmaActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("professor", professor);
-        i.putExtras(bundle);
+        List<String> turmas = new ArrayList<String>();
+        turmas.add(tdm.get(0).getIdTurma());
+        for (TurmaDisciplinaModel td: tdm) {
+            if(!turmas.contains(td.getIdTurma())){
+                turmas.add(td.getIdTurma());
+            }
+        }
 
-        startActivity(i);
+        Intent intent = new Intent(HomeProfessorActivity.this, ProfessorTurmaActivity.class);
+        intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
+        startActivity(intent);
     }
 }
