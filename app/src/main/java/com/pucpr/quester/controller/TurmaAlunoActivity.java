@@ -233,11 +233,6 @@ public class TurmaAlunoActivity extends AppCompatActivity implements TurmaAlunoA
 
         firestore.collection("alunos").
                 document(aluno.getId()).set(aluno);
-
-//        popularRecyclerView2();
-//        popularRecyclerView();
-//
-//        turmaAlunoAdapter.notifyItemRemoved(posicao);
         voltaAnterior();
     }
 

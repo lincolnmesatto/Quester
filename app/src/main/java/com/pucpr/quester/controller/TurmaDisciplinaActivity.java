@@ -210,10 +210,10 @@ public class TurmaDisciplinaActivity extends AppCompatActivity implements TurmaD
         firestore.collection("disciplinas").
                 document(disciplina.getId()).set(disciplina);
 
-//        popularRecyclerView2();
-//        popularRecyclerView();
-//
-//        turmaDisciplinaAdapter.notifyItemRemoved(posicao);
+        popularRecyclerView2();
+        popularRecyclerView();
+
+        turmaDisciplinaAdapter.notifyItemRemoved(posicao);
         voltaAnterior();
     }
 

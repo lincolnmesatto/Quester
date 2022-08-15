@@ -237,11 +237,6 @@ public class TurmaProfessorActivity extends AppCompatActivity implements TurmaPr
 
         firestore.collection("professores").
                 document(professor.getId()).set(professor);
-
-//        popularRecyclerView2();
-//        popularRecyclerView();
-//
-//        turmaProfessorAdapter.notifyItemRemoved(posicao);
         voltaAnterior();
     }
 
