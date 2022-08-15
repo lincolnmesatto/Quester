@@ -1,8 +1,9 @@
 package com.pucpr.quester.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Professor {
+public class Professor implements Serializable {
     private String id;
     private String idUsuario;
     private String idInsituicao;

@@ -124,13 +124,18 @@ public class HomeProfessorActivity extends AppCompatActivity implements Institui
     @Override
     public void onItemClick(Instituicao instituicao, int posicao) {
         Log.d("ITEM_CLICK", "Item clicado: "+posicao+ " ID = "+instituicao.getId());
-        List<TurmaDisciplinaModel> tdm = new ArrayList<>();
+        Professor professor = new Professor();
         for (Professor p : professores) {
             if(p.getIdInsituicao().equals(instituicao.getId())){
-                tdm.addAll(p.getTdm());
+                professor = p;
             }
         }
 
-        tdm.size();
+        Intent i = new Intent(HomeProfessorActivity.this, ProfessorTurmaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("professor", professor);
+        i.putExtras(bundle);
+
+        startActivity(i);
     }
 }
