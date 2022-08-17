@@ -45,6 +45,7 @@
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar_disciplina.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar_instituicao.xml" value="0.33" />
+        <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar_questionario.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar_recompensa.xml" value="0.33" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_cadastrar_usuario.xml" value="0.33" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
@@ -52,6 +53,7 @@
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_insituicao_derivado.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_professor_turma.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_questionario.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_turma.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_turma_aluno.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/linco/AndroidStudioProjects/Quester/app/src/main/res/layout/activity_turma_derivado.xml" value="0.1" />

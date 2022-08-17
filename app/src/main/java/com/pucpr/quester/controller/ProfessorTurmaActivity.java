@@ -31,11 +31,15 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
     FirebaseAuth firebaseAuth;
 
     ArrayList<String> turmas;
+    ArrayList<String> disciplinas;
 
     List<Turma> listaTurmas;
 
     RecyclerView recyclerViewTurma;
     ProfessorTurmaAdapter adapter;
+
+    String idProfessor;
+    String idInstituicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,13 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
         listaTurmas = new ArrayList<>();
 
         turmas = getIntent().getStringArrayListExtra("turmas");
+        disciplinas = getIntent().getStringArrayListExtra("disciplinas");
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            idProfessor = extras.getString("idProfessor");
+            idInstituicao = extras.getString("idInstituicao");
+        }
 
         for (String idTurma: turmas) {
             popularRecyclerView(idTurma);
@@ -90,6 +101,22 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
 
     @Override
     public void onItemClick(Turma turma, int posicao) {
+        List<String> discs = new ArrayList<>();
+        for (String d: disciplinas) {
+            String[] partes = d.split(";");
+            String idTurma = partes[0];
 
+            if(turma.getId().equals(idTurma)){
+                discs.add(partes[1]);
+            }
+        }
+
+        Intent intent = new Intent(ProfessorTurmaActivity.this, QuestionarioActivity.class);
+        intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
+        intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) discs);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        intent.putExtra("idTurma", turma.getId());
+        startActivity(intent);
     }
 }

@@ -125,15 +125,21 @@ public class HomeProfessorActivity extends AppCompatActivity implements Institui
         }
 
         List<String> turmas = new ArrayList<String>();
+        List<String> discs = new ArrayList<>();
+
         turmas.add(tdm.get(0).getIdTurma());
         for (TurmaDisciplinaModel td: tdm) {
             if(!turmas.contains(td.getIdTurma())){
                 turmas.add(td.getIdTurma());
             }
+            discs.add(td.getIdTurma()+";"+td.getIdDisciplina());
         }
 
         Intent intent = new Intent(HomeProfessorActivity.this, ProfessorTurmaActivity.class);
         intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
+        intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) discs);
+        intent.putExtra("idInstituicao", instituicao.getId());
+        intent.putExtra("idProfessor", professores.get(0).getId());
         startActivity(intent);
     }
 }
