@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Questionario {
     private String id;
+    private String titulo;
+    private int tipoPontuacao;
     private String idDisciplina;
     private String idTurma;
     private String idProfessor;
@@ -13,8 +15,10 @@ public class Questionario {
     public Questionario() {
     }
 
-    public Questionario(String id, String idDisciplina, String idTurma, String idProfessor, List<Questao> questoes, double xp) {
+    public Questionario(String id, String titulo, int tipoPontuacao, String idDisciplina, String idTurma, String idProfessor, List<Questao> questoes, double xp) {
         this.id = id;
+        this.titulo = titulo;
+        this.tipoPontuacao = tipoPontuacao;
         this.idDisciplina = idDisciplina;
         this.idTurma = idTurma;
         this.idProfessor = idProfessor;
@@ -68,5 +72,21 @@ public class Questionario {
 
     public void setXp(double xp) {
         this.xp = xp;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getTipoPontuacao() {
+        return tipoPontuacao;
+    }
+
+    public void setTipoPontuacao(int tipoPontuacao) {
+        this.tipoPontuacao = tipoPontuacao;
     }
 }

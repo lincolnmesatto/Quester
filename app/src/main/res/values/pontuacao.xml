@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pontuacao_type">
+        <item>Selecione</item>
+        <item>Participação</item>
+        <item>Acertos</item>
+    </string-array>
+</resources>

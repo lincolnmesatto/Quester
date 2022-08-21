@@ -39,4 +39,11 @@
     <string name="disponiveis">Disponíveis</string>
     <string name="vinculados">Vinculados</string>
     <string name="verificar">Verificar</string>
+    <string name="disciplina">Disciplina</string>
+    <string name="titulo">Título</string>
+    <string name="enunciado">Enunciado</string>
+    <string name="alternativa">Alternativa</string>
+    <string name="xp">XP</string>
+    <string name="adicionar_questao">Adicionar Questão</string>
+    <string name="string_adicionar_questao">Adicionar Questão</string>
 </resources>

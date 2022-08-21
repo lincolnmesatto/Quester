@@ -2,10 +2,13 @@ package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,20 +31,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CadastrarQuestionarioActivity extends AppCompatActivity {
+public class CadastrarQuestionarioActivity extends AppCompatActivity implements QuestionarioAdapter.OnListItemClick {
 
     FirebaseFirestore firestore;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
 
+    QuestionarioAdapter questionarioAdapter;
+
+    RecyclerView recyclerViewQuestoes;
+    EditText editTextTitulo;
+
     ArrayList<String> disciplinas;
     List<String> nomeDisciplinas;
+    List<Disciplina> disciplinaList;
+    List<Questao> questaoList;
 
     String idProfessor;
     String idInstituicao;
     String idTurma;
 
     Spinner spinner;
+    Spinner spinnerPontuacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +66,14 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         spinner = (Spinner) findViewById(R.id.spinnerDisciplina);
+        spinnerPontuacao = (Spinner) findViewById(R.id.spinnerTipoPontuacao);
+        editTextTitulo = findViewById(R.id.editTextTitulo);
+        recyclerViewQuestoes = findViewById(R.id.recyclerViewQuestoes);
+
+        ArrayAdapter<CharSequence> adapterPontuacao = ArrayAdapter.createFromResource(CadastrarQuestionarioActivity.this, R.array.pontuacao_type,
+                android.R.layout.simple_spinner_item);
+        adapterPontuacao.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPontuacao.setAdapter(adapterPontuacao);
 
         disciplinas = getIntent().getStringArrayListExtra("disciplinas");
 
@@ -66,10 +85,24 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity {
         }
 
         nomeDisciplinas = new ArrayList<>();
+        nomeDisciplinas.add("Selecione");
+        disciplinaList = new ArrayList<>();
 
         for (String disc : disciplinas) {
             popularListaDisciplina(disc);
         }
+
+        questaoList = new ArrayList<>();
+        Questao q = new Questao();
+        q.setAlternativas(new ArrayList<>());
+        q.getAlternativas().add(new Alternativa());
+        questaoList.add(q);
+
+        questionarioAdapter = new QuestionarioAdapter(this, questaoList);
+
+        recyclerViewQuestoes.setHasFixedSize(true);
+        recyclerViewQuestoes.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewQuestoes.setAdapter(questionarioAdapter);
 
     }
 
@@ -93,6 +126,7 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity {
         Disciplina d = disciplinaList.get(0);
 
         nomeDisciplinas.add(d.getNome());
+        disciplinaList.add(d);
 
         //spinner = new Spinner(this);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomeDisciplinas);
@@ -107,21 +141,37 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity {
 //        }
 
 //        if(mAwesomeValidation.validate()){
+        questaoList.size();
         List<Questao> questoes = new ArrayList<>();
         for (int i = 0; i < 6; i++){
             List<Alternativa> alternativas = new ArrayList<>();
-            for (int j = 0; j < 6; j++){
+            for (int j = 0; j < 5; j++){
                 alternativas.add(new Alternativa("Alternativa "+j, j == 0 ? 1 : 0));
             }
 
             questoes.add(new Questao("Enunciado "+i, alternativas));
         }
 
-        Questionario questionario = new Questionario(ref.getId(), "TYdH5ouey2Qe2BFE1rB1", idTurma, idProfessor, questoes, 150.0);
+        Questionario questionario = new Questionario(ref.getId(), "teste", 1, disciplinaList.get(0).getId(), idTurma, idProfessor, questoes, 150.0);
 
         firestore.collection("questionarios").document(ref.getId()).set(questionario);
 //        }else {
 //            Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
 //        }
+    }
+
+    @Override
+    public void onItemClick(Questao questao, int posicao) {
+        questao.getAlternativas().add(new Alternativa());
+        questionarioAdapter.notifyItemInserted(questaoList.size()-1);
+    }
+
+    public void btnAddQuestaoClicked(View view){
+        Questao q = new Questao();
+        q.setAlternativas(new ArrayList<>());
+        q.getAlternativas().add(new Alternativa());
+        questaoList.add(q);
+
+        questionarioAdapter.notifyItemInserted(questaoList.size()-1);
     }
 }

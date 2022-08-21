@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userView"
+    android:layout_width="353dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="18dp"
+    android:background="@color/black"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="TextView" />
+
+        <EditText
+            android:id="@+id/editTextQuestao"
+            android:layout_width="353dp"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/enunciado"
+            android:inputType="textMultiLine"
+            android:importantForAutofill="no" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAlternativa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/btnAdicionarAlternativa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Alternativa" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
