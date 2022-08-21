@@ -8,10 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="tortoise">#72aec0</color>
-    <color name="colorPrimary">#0099ff</color>
+    <color name="colorPrimary">#72aec0</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="red">#FF0000</color>
-    <color name="corCardPar">#00B0FF</color>
+    <color name="corCardPar">#72aec0</color>
     <color name="corCardImpar">#00648B</color>
 </resources>
