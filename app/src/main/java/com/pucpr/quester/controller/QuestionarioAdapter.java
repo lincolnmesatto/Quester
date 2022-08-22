@@ -64,7 +64,7 @@ public class QuestionarioAdapter extends RecyclerView.Adapter<QuestionarioAdapte
             }
         });
 
-        alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas());
+        alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas(), holder.getAdapterPosition());
 
         holder.recyclerViewAlternativa.setHasFixedSize(true);
         holder.recyclerViewAlternativa.setLayoutManager(new LinearLayoutManager(holder.recyclerViewAlternativa.getContext()));

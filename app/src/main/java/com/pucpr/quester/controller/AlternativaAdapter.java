@@ -1,5 +1,7 @@
 package com.pucpr.quester.controller;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +9,10 @@ import android.widget.TextView;
 
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Alternativa;
+import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Questao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,10 +24,12 @@ public class AlternativaAdapter extends RecyclerView.Adapter<AlternativaAdapter.
     private final OnListItemClick onListItemClick;
 
     List<Alternativa> alternativas;
+    int posicaoQuestao;
 
-    public AlternativaAdapter(OnListItemClick onListItemClick, List<Alternativa> alternativas) {
+    public AlternativaAdapter(OnListItemClick onListItemClick, List<Alternativa> alternativas, int posicaoQuestao) {
         this.onListItemClick = onListItemClick;
         this.alternativas = alternativas;
+        this.posicaoQuestao = posicaoQuestao;
     }
 
     @NonNull
@@ -35,8 +41,27 @@ public class AlternativaAdapter extends RecyclerView.Adapter<AlternativaAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AlternativaViewHolder holder, int position) {
-        //TODO setar o layout do subitem
-        holder.editTextAlternativas.setText(alternativas.get(position).getAlternativa());
+        //holder.editTextAlternativas.setText(alternativas.get(position).getAlternativa());
+
+        holder.editTextAlternativas.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                alternativas.get(holder.getAdapterPosition()).setAlternativa(holder.editTextAlternativas.getText().toString());
+                if(DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas() == null)
+                    DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).setAlternativas(new ArrayList<>());
+                DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).setAlternativa(holder.editTextAlternativas.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
