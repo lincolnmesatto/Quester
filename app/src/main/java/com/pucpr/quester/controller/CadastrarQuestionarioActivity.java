@@ -22,6 +22,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Alternativa;
+import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questao;
 import com.pucpr.quester.model.Questionario;
@@ -65,6 +66,8 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        DataModel.getInstance().setContext(CadastrarQuestionarioActivity.this);
+
         spinner = (Spinner) findViewById(R.id.spinnerDisciplina);
         spinnerPontuacao = (Spinner) findViewById(R.id.spinnerTipoPontuacao);
         editTextTitulo = findViewById(R.id.editTextTitulo);
@@ -92,11 +95,13 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
             popularListaDisciplina(disc);
         }
 
-        questaoList = new ArrayList<>();
+        //questaoList = new ArrayList<>();
+        DataModel.getInstance().setQuestoesDataModel(new ArrayList<>());
         Questao q = new Questao();
         q.setAlternativas(new ArrayList<>());
         q.getAlternativas().add(new Alternativa());
-        questaoList.add(q);
+        DataModel.getInstance().getQuestoesDataModel().add(q);
+//        questaoList.add(q);
 
         questionarioAdapter = new QuestionarioAdapter(this, questaoList);
 
@@ -142,6 +147,7 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
 
 //        if(mAwesomeValidation.validate()){
         questaoList.size();
+        DataModel.getInstance().getQuestoesDataModel();
         List<Questao> questoes = new ArrayList<>();
         for (int i = 0; i < 6; i++){
             List<Alternativa> alternativas = new ArrayList<>();
@@ -170,8 +176,8 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
         Questao q = new Questao();
         q.setAlternativas(new ArrayList<>());
         q.getAlternativas().add(new Alternativa());
-        questaoList.add(q);
+        DataModel.getInstance().getQuestoesDataModel().add(q);
 
-        questionarioAdapter.notifyItemInserted(questaoList.size()-1);
+        questionarioAdapter.notifyItemInserted(DataModel.getInstance().getQuestoesDataModel().size()-1);
     }
 }

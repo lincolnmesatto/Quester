@@ -1,5 +1,7 @@
 package com.pucpr.quester.controller;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Alternativa;
 import com.pucpr.quester.model.Aluno;
+import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Questao;
 import com.pucpr.quester.model.Questionario;
 import com.pucpr.quester.model.UsuarioAlunoModel;
@@ -41,7 +44,25 @@ public class QuestionarioAdapter extends RecyclerView.Adapter<QuestionarioAdapte
     @Override
     public void onBindViewHolder(@NonNull QuestionarioViewHolder holder, int position) {
         //TODO setar o layout do subitem
-        holder.editTextQuestao.setText(questoes.get(position).getEnunciado());
+        //holder.editTextQuestao.setText(questoes.get(position).getEnunciado());
+
+        holder.editTextQuestao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                questoes.get(holder.getAdapterPosition()).setEnunciado(holder.editTextQuestao.getText().toString());
+                DataModel.getInstance().getQuestoesDataModel().get(holder.getAdapterPosition()).setEnunciado(holder.editTextQuestao.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas());
 
