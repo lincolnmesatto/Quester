@@ -149,15 +149,6 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
 //        if(mAwesomeValidation.validate()){
 
         DataModel.getInstance().getQuestoesDataModel().get(0).getEnunciado();
-//        List<Questao> questoes = new ArrayList<>();
-//        for (Questao q : DataModel.getInstance().getQuestoesDataModel()){
-//            List<Alternativa> alternativas = new ArrayList<>();
-//            for (int j = 0; j < 5; j++){
-//                alternativas.add(new Alternativa("Alternativa "+j, j == 0 ? 1 : 0));
-//            }
-//
-//            questoes.add(new Questao(q.getEnunciado(), alternativas));
-//        }
 
         Questionario questionario = new Questionario(ref.getId(), editTextTitulo.getText().toString(), spinnerPontuacao.getSelectedItemPosition(), disciplinas.get(spinner.getSelectedItemPosition()-1),
                 idTurma, idProfessor, DataModel.getInstance().getQuestoesDataModel(), Double.valueOf(editTextXp.getText().toString()));
@@ -183,7 +174,9 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
     public void btnAddQuestaoClicked(View view){
         Questao q = new Questao();
         q.setAlternativas(new ArrayList<>());
-        q.getAlternativas().add(new Alternativa());
+        for(int i=0; i<=4; i++){
+            q.getAlternativas().add(new Alternativa());
+        }
         DataModel.getInstance().getQuestoesDataModel().add(q);
 
         questionarioAdapter.notifyItemInserted(DataModel.getInstance().getQuestoesDataModel().size()-1);
