@@ -17,12 +17,6 @@
 
         >
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="TextView" />
-
         <EditText
             android:id="@+id/editTextQuestao"
             android:layout_width="353dp"
@@ -37,12 +31,6 @@
             android:id="@+id/recyclerViewAlternativa"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/btnAdicionarAlternativa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Adicionar Alternativa" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

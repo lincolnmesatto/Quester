@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.pucpr.quester.R;
@@ -43,8 +44,11 @@ public class QuestionarioAdapter extends RecyclerView.Adapter<QuestionarioAdapte
 
     @Override
     public void onBindViewHolder(@NonNull QuestionarioViewHolder holder, int position) {
-        //TODO setar o layout do subitem
-        //holder.editTextQuestao.setText(questoes.get(position).getEnunciado());
+        alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas(), holder.getAdapterPosition());
+
+        holder.recyclerViewAlternativa.setHasFixedSize(true);
+        holder.recyclerViewAlternativa.setLayoutManager(new LinearLayoutManager(holder.recyclerViewAlternativa.getContext()));
+        holder.recyclerViewAlternativa.setAdapter(alternativaAdapter);
 
         holder.editTextQuestao.addTextChangedListener(new TextWatcher() {
             @Override
@@ -63,12 +67,6 @@ public class QuestionarioAdapter extends RecyclerView.Adapter<QuestionarioAdapte
 
             }
         });
-
-        alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas(), holder.getAdapterPosition());
-
-        holder.recyclerViewAlternativa.setHasFixedSize(true);
-        holder.recyclerViewAlternativa.setLayoutManager(new LinearLayoutManager(holder.recyclerViewAlternativa.getContext()));
-        holder.recyclerViewAlternativa.setAdapter(alternativaAdapter);
     }
 
     @Override
