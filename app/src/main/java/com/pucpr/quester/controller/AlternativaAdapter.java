@@ -5,6 +5,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.pucpr.quester.R;
@@ -62,6 +65,14 @@ public class AlternativaAdapter extends RecyclerView.Adapter<AlternativaAdapter.
 
             }
         });
+
+        holder.checkBoxQuestao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                alternativas.get(holder.getAdapterPosition()).setCorreta(isChecked ? 1 : 0);
+                DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).setCorreta(isChecked ? 1 : 0);
+            }
+        });
     }
 
     @Override
@@ -72,11 +83,13 @@ public class AlternativaAdapter extends RecyclerView.Adapter<AlternativaAdapter.
     public class AlternativaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView editTextAlternativas;
+        private final CheckBox checkBoxQuestao;
 //        private final TextView textViewCpfAluno;
 
         public AlternativaViewHolder(@NonNull View itemView) {
             super(itemView);
             editTextAlternativas = itemView.findViewById(R.id.editTextAlternativas);
+            checkBoxQuestao = itemView.findViewById(R.id.checkBoxQuestao);
 //            textViewCpfAluno = itemView.findViewById(R.id.textViewCpfAluno);
 
             itemView.setOnClickListener(new View.OnClickListener() {

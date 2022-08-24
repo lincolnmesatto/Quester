@@ -148,7 +148,7 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
 
 //        if(mAwesomeValidation.validate()){
 
-        DataModel.getInstance().getQuestoesDataModel().get(0).getEnunciado();
+        int i = DataModel.getInstance().getQuestoesDataModel().get(0).getAlternativas().get(0).getCorreta();
 
         Questionario questionario = new Questionario(ref.getId(), editTextTitulo.getText().toString(), spinnerPontuacao.getSelectedItemPosition(), disciplinas.get(spinner.getSelectedItemPosition()-1),
                 idTurma, idProfessor, DataModel.getInstance().getQuestoesDataModel(), Double.valueOf(editTextXp.getText().toString()));

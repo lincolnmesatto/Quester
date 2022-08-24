@@ -27,5 +27,12 @@
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <CheckBox
+            android:id="@+id/checkBoxQuestao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/correta" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

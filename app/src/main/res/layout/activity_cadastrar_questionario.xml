@@ -10,13 +10,13 @@
         android:id="@+id/btnSalvarQuestionario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:onClick="adicionarQuestionario"
         android:text="@string/salvar"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewQuestoes"
+        app:layout_constraintEnd_toEndOf="@+id/btnAddQuestao"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewQuestoes"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTipoPontuacao"
+        app:layout_constraintStart_toStartOf="@+id/btnAddQuestao"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddQuestao"
         tools:ignore="TextContrastCheck" />
 
     <Spinner
@@ -58,37 +58,36 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewQuestoes"
-        android:layout_width="396dp"
-        android:layout_height="188dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTitulo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTitulo"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitulo" />
+        android:layout_width="398dp"
+        android:layout_height="202dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTipoPontuacao" />
 
     <EditText
         android:id="@+id/editTextXp"
         android:layout_width="353dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/xp"
         android:importantForAutofill="no"
         android:inputType="number"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewQuestoes"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTitulo"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewQuestoes"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewQuestoes" />
+        app:layout_constraintStart_toStartOf="@+id/editTextTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitulo" />
 
     <Spinner
         android:id="@+id/spinnerTipoPontuacao"
         android:layout_width="353dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextXp"
+        app:layout_constraintStart_toStartOf="@+id/editTextXp"
         app:layout_constraintTop_toBottomOf="@+id/editTextXp"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -96,7 +95,7 @@
         android:id="@+id/btnAddQuestao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="btnAddQuestaoClicked"
         android:text="@string/string_adicionar_questao"
         app:layout_constraintEnd_toEndOf="@+id/recyclerViewQuestoes"
