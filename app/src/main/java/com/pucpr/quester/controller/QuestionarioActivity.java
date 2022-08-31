@@ -2,24 +2,31 @@ package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Questionario;
 import com.pucpr.quester.model.Turma;
 
@@ -72,6 +79,24 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
         }
 
         popularListaQuestionario(idProfessor, idTurma);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,
+                        ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction){
+                        int position = viewHolder.getAdapterPosition();
+
+                        deletar(position);
+                    }
+                }
+        );
+        itemTouchHelper.attachToRecyclerView(recyclerviewListQuestionario);
     }
 
     private void popularListaQuestionario(String idProfessor, String idTurma) {
@@ -140,5 +165,44 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
         intent.putExtra("idTurma", idTurma);
         intent.putExtra("idQuestionario", questionario.getId());
         startActivity(intent);
+    }
+
+    public void deletar(int position){
+        firestore.collection("questionarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<Questionario> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        list.add(document.toObject(Questionario.class));
+                    }
+                    Questionario q = list.get(position);
+                    firestore.collection("questionarios").document(q.getId())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    questionarioListAdapter.notifyItemRemoved(position);
+                                    Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
+
+                                    Intent intent = new Intent(QuestionarioActivity.this, QuestionarioActivity.class);
+                                    intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) disciplinas);
+                                    intent.putExtra("idInstituicao", idInstituicao);
+                                    intent.putExtra("idProfessor", idProfessor);
+                                    intent.putExtra("idTurma", idTurma);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("EXCLUIR_QUESTIONARIO", "Erro ao exlcuir questionárioo", e);
+                                }
+                            });
+                } else {
+                    Log.d("OBTER_QUESTIONARIO", "Erro ao obter: ", task.getException());
+                }
+            }
+        });
     }
 }
