@@ -10,6 +10,7 @@ public class DataModel {
     private ArrayList<Questao> questoesDataModel;
     private Context context;
     private int posicao;
+    private boolean insert;
 
     private DataModel(){
         questoesDataModel = new ArrayList<>();
@@ -43,5 +44,13 @@ public class DataModel {
 
     public Context getContext() {
         return context;
+    }
+
+    public boolean isInsert() {
+        return insert;
+    }
+
+    public void setInsert(boolean insert) {
+        this.insert = insert;
     }
 }

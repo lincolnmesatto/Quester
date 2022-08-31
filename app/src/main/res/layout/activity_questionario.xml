@@ -6,17 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".controller.QuestionarioActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewListQuestionario"
+        android:layout_width="364dp"
+        android:layout_height="570dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="512dp"
         android:clickable="true"
         android:onClick="btnAddQuestionarioClicked"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerviewListQuestionario"
+        app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionario"
         app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteY="517dp" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

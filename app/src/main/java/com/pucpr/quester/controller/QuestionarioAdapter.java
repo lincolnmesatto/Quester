@@ -44,6 +44,10 @@ public class QuestionarioAdapter extends RecyclerView.Adapter<QuestionarioAdapte
 
     @Override
     public void onBindViewHolder(@NonNull QuestionarioViewHolder holder, int position) {
+        if(!DataModel.getInstance().isInsert()){
+            holder.editTextQuestao.setText(DataModel.getInstance().getQuestoesDataModel().get(holder.getAdapterPosition()).getEnunciado());
+        }
+
         alternativaAdapter = new AlternativaAdapter(this, questoes.get(holder.getAdapterPosition()).getAlternativas(), holder.getAdapterPosition());
 
         holder.recyclerViewAlternativa.setHasFixedSize(true);

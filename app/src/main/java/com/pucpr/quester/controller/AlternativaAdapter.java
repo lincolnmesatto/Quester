@@ -44,7 +44,10 @@ public class AlternativaAdapter extends RecyclerView.Adapter<AlternativaAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AlternativaViewHolder holder, int position) {
-        //holder.editTextAlternativas.setText(alternativas.get(position).getAlternativa());
+        if(!DataModel.getInstance().isInsert()){
+            holder.editTextAlternativas.setText(DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getAlternativa());
+            holder.checkBoxQuestao.setChecked((DataModel.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getCorreta()) != 0);
+        }
 
         holder.editTextAlternativas.addTextChangedListener(new TextWatcher() {
             @Override

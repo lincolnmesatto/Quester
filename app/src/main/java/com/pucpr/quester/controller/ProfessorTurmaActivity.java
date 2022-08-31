@@ -105,8 +105,9 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
         for (String d: disciplinas) {
             String[] partes = d.split(";");
             String idTurma = partes[0];
+            String idDisciplina = partes[1];
 
-            if(turma.getId().equals(idTurma)){
+            if(turma.getId().equals(idTurma) && !idDisciplina.equals("none") ){
                 discs.add(partes[1]);
             }
         }
