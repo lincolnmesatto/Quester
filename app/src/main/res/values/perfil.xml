@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="perfil_type">
-        <item>Selecione</item>
+        <item>Categoria</item>
         <item>Aluno</item>
         <item>Professor</item>
     </string-array>

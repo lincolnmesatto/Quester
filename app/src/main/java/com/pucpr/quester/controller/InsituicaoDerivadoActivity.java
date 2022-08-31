@@ -26,7 +26,6 @@ public class InsituicaoDerivadoActivity extends AppCompatActivity {
             setTitle(nomeInstituicao);
         }
     }
-
     public void buttonAddUserClicked(View view){
         Intent i = new Intent(InsituicaoDerivadoActivity.this, CadastrarUsuarioActivity.class);
         i.putExtra("id_instituicao", idInstituicao);
