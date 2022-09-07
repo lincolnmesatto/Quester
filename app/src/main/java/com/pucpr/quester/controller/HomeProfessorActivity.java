@@ -117,29 +117,32 @@ public class HomeProfessorActivity extends AppCompatActivity implements Institui
 
     @Override
     public void onItemClick(Instituicao instituicao, int posicao) {
+        String id = "";
         List<TurmaDisciplinaModel> tdm = new ArrayList<>();
         for (Professor p : professores) {
             if(p.getIdInsituicao().equals(instituicao.getId())){
                 tdm.addAll(p.getTdm());
+                id = p.getId();
             }
         }
 
         List<String> turmas = new ArrayList<String>();
         List<String> discs = new ArrayList<>();
 
-        turmas.add(tdm.get(0).getIdTurma());
-        for (TurmaDisciplinaModel td: tdm) {
-            if(!turmas.contains(td.getIdTurma())){
-                turmas.add(td.getIdTurma());
+        if(tdm.size() > 1) {
+            turmas.add(tdm.get(0).getIdTurma());
+            for (TurmaDisciplinaModel td : tdm) {
+                if (!turmas.contains(td.getIdTurma())) {
+                    turmas.add(td.getIdTurma());
+                }
+                discs.add(td.getIdTurma() + ";" + td.getIdDisciplina());
             }
-            discs.add(td.getIdTurma()+";"+td.getIdDisciplina());
         }
-
         Intent intent = new Intent(HomeProfessorActivity.this, ProfessorTurmaActivity.class);
         intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
         intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) discs);
         intent.putExtra("idInstituicao", instituicao.getId());
-        intent.putExtra("idProfessor", professores.get(0).getId());
+        intent.putExtra("idProfessor", id);
         startActivity(intent);
     }
 }
