@@ -1,22 +1,17 @@
-package com.pucpr.quester.controller;
+package com.pucpr.quester.controller.adapter;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Alternativa;
-import com.pucpr.quester.model.Aluno;
 import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Questao;
-import com.pucpr.quester.model.Questionario;
-import com.pucpr.quester.model.UsuarioAlunoModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;

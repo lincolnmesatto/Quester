@@ -1,4 +1,4 @@
-package com.pucpr.quester.controller;
+package com.pucpr.quester.controller.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

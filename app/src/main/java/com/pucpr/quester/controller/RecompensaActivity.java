@@ -25,6 +25,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.RecompensaAdapter;
 import com.pucpr.quester.model.Recompensa;
 
 import java.util.ArrayList;

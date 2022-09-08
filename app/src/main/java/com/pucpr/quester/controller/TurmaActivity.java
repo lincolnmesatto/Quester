@@ -26,7 +26,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Instituicao;
+import com.pucpr.quester.controller.adapter.TurmaAdapter;
 import com.pucpr.quester.model.Turma;
 
 import java.util.ArrayList;

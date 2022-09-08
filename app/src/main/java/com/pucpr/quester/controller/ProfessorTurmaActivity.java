@@ -16,8 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Instituicao;
-import com.pucpr.quester.model.Professor;
+import com.pucpr.quester.controller.adapter.ProfessorTurmaAdapter;
 import com.pucpr.quester.model.Turma;
 
 import java.util.ArrayList;
@@ -113,7 +112,7 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
         }
 
         Intent intent = new Intent(ProfessorTurmaActivity.this, QuestionarioActivity.class);
-        intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
+        intent.putStringArrayListExtra("turmas", turmas);
         intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) discs);
         intent.putExtra("idInstituicao", idInstituicao);
         intent.putExtra("idProfessor", idProfessor);

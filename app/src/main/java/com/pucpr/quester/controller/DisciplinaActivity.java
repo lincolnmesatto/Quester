@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,8 +26,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.DisciplinaAdapter;
 import com.pucpr.quester.model.Disciplina;
-import com.pucpr.quester.model.Instituicao;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.pucpr.quester.controller;
+package com.pucpr.quester.controller.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Turma;
 
 import java.util.List;

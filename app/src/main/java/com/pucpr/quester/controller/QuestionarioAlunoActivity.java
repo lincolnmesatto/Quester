@@ -16,8 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.QuestionarioListAdapter;
 import com.pucpr.quester.model.Disciplina;
-import com.pucpr.quester.model.Questao;
 import com.pucpr.quester.model.Questionario;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pucpr.quester.controller;
+package com.pucpr.quester.controller.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,31 +11,36 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.model.Instituicao;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TurmaDisciplina2Adapter extends FirestorePagingAdapter<Disciplina, TurmaDisciplina2Adapter.TurmaDisciplinaViewHolder> {
+public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, InstituicaoAdapter.InstituicaoViewHolder> {
 
     private final OnListItemClick onListItemClick;
 
-    public TurmaDisciplina2Adapter(@NonNull FirestorePagingOptions<Disciplina> options, OnListItemClick onListItemClick) {
+    public InstituicaoAdapter(@NonNull FirestorePagingOptions<Instituicao> options, OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull TurmaDisciplinaViewHolder holder, int position, @NonNull Disciplina model) {
-        holder.textViewNomeDisciplina.setText(model.getNome());
+    protected void onBindViewHolder(@NonNull InstituicaoViewHolder holder, int position, @NonNull Instituicao model) {
+        holder.textViewNomeInstituicao.setText(model.getNome());
+        holder.textViewNomeEstado.setText(model.getEstado());
+        holder.textViewNomeCidade.setText(model.getCidade());
+
 //        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+
     }
 
     @NonNull
     @Override
-    public TurmaDisciplinaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_turma_disciplina2, parent, false);
-        return new TurmaDisciplinaViewHolder(view);
+    public InstituicaoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_instituicao, parent, false);
+        return new InstituicaoViewHolder(view);
     }
 
     @Override
@@ -60,13 +65,20 @@ public class TurmaDisciplina2Adapter extends FirestorePagingAdapter<Disciplina, 
         }
     }
 
-    public class TurmaDisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class InstituicaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewNomeDisciplina;
+        private final TextView textViewNomeInstituicao;
+        private final TextView textViewNomeEstado;
+        private final TextView textViewNomeCidade;
+        private final CardView cardViewUserView;
 
-        public TurmaDisciplinaViewHolder(@NonNull View itemView) {
+
+        public InstituicaoViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeDisciplina);
+            textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
+            textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
+            textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,6 +86,15 @@ public class TurmaDisciplina2Adapter extends FirestorePagingAdapter<Disciplina, 
                     if(onListItemClick == null)
                         return;
                     onListItemClick.onItemClick(getItem(getAdapterPosition()), getAdapterPosition());
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onListItemClick == null)
+                        return false;
+
+                    return onListItemClick.onItemLongClick(getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -86,5 +107,6 @@ public class TurmaDisciplina2Adapter extends FirestorePagingAdapter<Disciplina, 
 
     public interface OnListItemClick {
         void onItemClick(DocumentSnapshot snapshot, int posicao);
+        boolean onItemLongClick(DocumentSnapshot snapshot, int posicao);
     }
 }

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,11 +16,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.InstituicaoHomeAdapter;
 import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Professor;
 import com.pucpr.quester.model.TurmaDisciplinaModel;
-import com.pucpr.quester.model.Usuario;
-import com.pucpr.quester.model.UsuarioProfessorModel;
 
 import java.util.ArrayList;
 import java.util.List;

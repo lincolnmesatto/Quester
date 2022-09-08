@@ -26,12 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.QuestionarioAdapter;
 import com.pucpr.quester.model.Alternativa;
 import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questao;
 import com.pucpr.quester.model.Questionario;
-import com.pucpr.quester.model.Recompensa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +75,8 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
 
         DataModel.getInstance().setContext(CadastrarQuestionarioActivity.this);
 
-        spinner = (Spinner) findViewById(R.id.spinnerDisciplina);
-        spinnerPontuacao = (Spinner) findViewById(R.id.spinnerTipoPontuacao);
+        spinner = findViewById(R.id.spinnerDisciplina);
+        spinnerPontuacao = findViewById(R.id.spinnerTipoPontuacao);
         editTextTitulo = findViewById(R.id.editTextTitulo);
         editTextXp = findViewById(R.id.editTextXp);
         recyclerViewQuestoes = findViewById(R.id.recyclerViewQuestoes);
@@ -209,7 +209,7 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
                 firestore.collection("questionarios").document(idQuestionario).set(questionario);
 
                 Intent intent = new Intent(CadastrarQuestionarioActivity.this, QuestionarioActivity.class);
-                intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) disciplinas);
+                intent.putStringArrayListExtra("disciplinas", disciplinas);
                 intent.putExtra("idInstituicao", idInstituicao);
                 intent.putExtra("idProfessor", idProfessor);
                 intent.putExtra("idTurma", idTurma);

@@ -16,11 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.InstituicaoHomeAdapter;
 import com.pucpr.quester.model.Aluno;
 import com.pucpr.quester.model.Instituicao;
-import com.pucpr.quester.model.Professor;
-import com.pucpr.quester.model.Turma;
-import com.pucpr.quester.model.TurmaDisciplinaModel;
 
 import java.util.ArrayList;
 import java.util.List;

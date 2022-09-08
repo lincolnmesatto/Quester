@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,11 +23,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.DataModel;
+import com.pucpr.quester.controller.adapter.QuestionarioListAdapter;
 import com.pucpr.quester.model.Disciplina;
-import com.pucpr.quester.model.Instituicao;
 import com.pucpr.quester.model.Questionario;
-import com.pucpr.quester.model.Turma;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +124,7 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
 
     public void btnAddQuestionarioClicked(View view){
         Intent intent = new Intent(QuestionarioActivity.this, CadastrarQuestionarioActivity.class);
-        intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) disciplinas);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
         intent.putExtra("idInstituicao", idInstituicao);
         intent.putExtra("idProfessor", idProfessor);
         intent.putExtra("idTurma", idTurma);
@@ -159,7 +156,7 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
     @Override
     public void onItemClick(Questionario questionario, int posicao) {
         Intent intent = new Intent(QuestionarioActivity.this, CadastrarQuestionarioActivity.class);
-        intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) disciplinas);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
         intent.putExtra("idInstituicao", idInstituicao);
         intent.putExtra("idProfessor", idProfessor);
         intent.putExtra("idTurma", idTurma);
@@ -186,7 +183,7 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
                                     Toast.makeText(getApplicationContext(), "Item removido com sucesso", Toast.LENGTH_LONG).show();
 
                                     Intent intent = new Intent(QuestionarioActivity.this, QuestionarioActivity.class);
-                                    intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) disciplinas);
+                                    intent.putStringArrayListExtra("disciplinas", disciplinas);
                                     intent.putExtra("idInstituicao", idInstituicao);
                                     intent.putExtra("idProfessor", idProfessor);
                                     intent.putExtra("idTurma", idTurma);

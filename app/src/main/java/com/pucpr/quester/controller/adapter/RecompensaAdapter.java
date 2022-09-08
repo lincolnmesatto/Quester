@@ -1,6 +1,5 @@
-package com.pucpr.quester.controller;
+package com.pucpr.quester.controller.adapter;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,36 +11,31 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Instituicao;
+import com.pucpr.quester.model.Recompensa;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, InstituicaoAdapter.InstituicaoViewHolder> {
+public class RecompensaAdapter extends FirestorePagingAdapter<Recompensa, RecompensaAdapter.RecompensaViewHolder> {
+    private final RecompensaAdapter.OnListItemClick onListItemClick;
 
-    private final OnListItemClick onListItemClick;
-
-    public InstituicaoAdapter(@NonNull FirestorePagingOptions<Instituicao> options, OnListItemClick onListItemClick) {
+    public RecompensaAdapter(@NonNull FirestorePagingOptions<Recompensa> options, RecompensaAdapter.OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull InstituicaoViewHolder holder, int position, @NonNull Instituicao model) {
-        holder.textViewNomeInstituicao.setText(model.getNome());
-        holder.textViewNomeEstado.setText(model.getEstado());
-        holder.textViewNomeCidade.setText(model.getCidade());
-
+    protected void onBindViewHolder(@NonNull RecompensaAdapter.RecompensaViewHolder holder, int position, @NonNull Recompensa model) {
+        holder.textViewDescricaoRecompensa.setText(model.getDescricao());
+        holder.textViewLvl.setText("Nível: "+model.getLevelAdquire());
 //        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
-
     }
 
     @NonNull
     @Override
-    public InstituicaoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_instituicao, parent, false);
-        return new InstituicaoViewHolder(view);
+    public RecompensaAdapter.RecompensaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_recompensa, parent, false);
+        return new RecompensaAdapter.RecompensaViewHolder(view);
     }
 
     @Override
@@ -66,20 +60,15 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
         }
     }
 
-    public class InstituicaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecompensaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textViewNomeInstituicao;
-        private final TextView textViewNomeEstado;
-        private final TextView textViewNomeCidade;
-        private final CardView cardViewUserView;
+        private final TextView textViewDescricaoRecompensa;
+        private final TextView textViewLvl;
 
-
-        public InstituicaoViewHolder(@NonNull View itemView) {
+        public RecompensaViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
-            textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
-            textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
-            cardViewUserView = itemView.findViewById(R.id.userView);
+            textViewDescricaoRecompensa = itemView.findViewById(R.id.textViewDescricaoRecompensa);
+            textViewLvl = itemView.findViewById(R.id.textViewLvl);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,15 +76,6 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
                     if(onListItemClick == null)
                         return;
                     onListItemClick.onItemClick(getItem(getAdapterPosition()), getAdapterPosition());
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(onListItemClick == null)
-                        return false;
-
-                    return onListItemClick.onItemLongClick(getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -108,6 +88,5 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
 
     public interface OnListItemClick {
         void onItemClick(DocumentSnapshot snapshot, int posicao);
-        boolean onItemLongClick(DocumentSnapshot snapshot, int posicao);
     }
 }

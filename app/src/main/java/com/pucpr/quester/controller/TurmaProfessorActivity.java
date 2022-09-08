@@ -15,12 +15,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Aluno;
-import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.controller.adapter.TurmaProfessor2Adapter;
+import com.pucpr.quester.controller.adapter.TurmaProfessorAdapter;
 import com.pucpr.quester.model.Professor;
 import com.pucpr.quester.model.TurmaDisciplinaModel;
 import com.pucpr.quester.model.Usuario;
-import com.pucpr.quester.model.UsuarioAlunoModel;
 import com.pucpr.quester.model.UsuarioProfessorModel;
 
 import java.util.ArrayList;
