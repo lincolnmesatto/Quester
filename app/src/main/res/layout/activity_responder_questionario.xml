@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.ResponderQuestionarioActivity">
+
+    <TextView
+        android:id="@+id/tvResponderDisciplina"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvResponderTitulo"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/todo"
+        app:layout_constraintEnd_toEndOf="@+id/tvResponderDisciplina"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvResponderDisciplina"
+        app:layout_constraintTop_toBottomOf="@+id/tvResponderDisciplina" />
+
+    <TextView
+        android:id="@+id/tvResponderXp"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/todo"
+        app:layout_constraintEnd_toEndOf="@+id/tvResponderTitulo"
+        app:layout_constraintStart_toStartOf="@+id/tvResponderTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/tvResponderTitulo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQuestoesResposta"
+        android:layout_width="351dp"
+        android:layout_height="349dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvResponderXp"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="@+id/tvResponderXp"
+        app:layout_constraintTop_toBottomOf="@+id/tvResponderXp" />
+
+    <Button
+        android:id="@+id/btnSalvarRespsta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="responderQuestionario"
+        android:text="@string/salvar"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewQuestoesResposta"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewQuestoesResposta"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewQuestoesResposta" />
+</androidx.constraintlayout.widget.ConstraintLayout>

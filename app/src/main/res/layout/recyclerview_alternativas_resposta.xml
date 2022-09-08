@@ -18,27 +18,16 @@
         >
 
         <TextView
-            android:id="@+id/textViewListTitulo"
+            android:id="@+id/tvAlternativaResposta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo" />
 
-        <TextView
-            android:id="@+id/textViewListDisciplina"
+        <CheckBox
+            android:id="@+id/checkBoxQuestaoResposta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todo" />
+            android:text="@string/correta" />
 
-        <TextView
-            android:id="@+id/textViewListQtdQuestao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/todo" />
-
-        <TextView
-            android:id="@+id/textViewListXp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/todo" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

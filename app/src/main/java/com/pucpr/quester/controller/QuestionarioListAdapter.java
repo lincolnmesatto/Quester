@@ -1,21 +1,14 @@
 package com.pucpr.quester.controller;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.pucpr.quester.R;
-import com.pucpr.quester.model.Alternativa;
-import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questionario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -51,6 +44,7 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
             }
         }
         holder.textViewListQtdQuestao.setText("Nº de questões: "+questionarios.get(position).getQuestoes().size());
+        holder.textViewListXp.setText("Experiência: "+questionarios.get(position).getXp());
     }
 
     @Override
@@ -63,12 +57,14 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
         private final TextView textViewListTitulo;
         private final TextView textViewListDisciplina;
         private final TextView textViewListQtdQuestao;
+        private final TextView textViewListXp;
 
         public QuestionarioListViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewListTitulo = itemView.findViewById(R.id.textViewListTitulo);
             textViewListDisciplina = itemView.findViewById(R.id.textViewListDisciplina);
             textViewListQtdQuestao = itemView.findViewById(R.id.textViewListQtdQuestao);
+            textViewListXp = itemView.findViewById(R.id.textViewListXp);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

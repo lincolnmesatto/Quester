@@ -96,23 +96,11 @@ public class AlunoTurmaActivity extends AppCompatActivity implements AlunoTurmaA
 
     @Override
     public void onItemClick(Turma turma, int posicao) {
-//        List<String> discs = new ArrayList<>();
-//        for (String d: disciplinas) {
-//            String[] partes = d.split(";");
-//            String idTurma = partes[0];
-//            String idDisciplina = partes[1];
-//
-//            if(turma.getId().equals(idTurma) && !idDisciplina.equals("none") ){
-//                discs.add(partes[1]);
-//            }
-//        }
-//
-//        Intent intent = new Intent(AlunoTurmaActivity.this, QuestionarioActivity.class);
-//        intent.putStringArrayListExtra("turmas", (ArrayList<String>) turmas);
-//        intent.putStringArrayListExtra("disciplinas", (ArrayList<String>) discs);
-//        intent.putExtra("idInstituicao", idInstituicao);
-//        intent.putExtra("idProfessor", idProfessor);
-//        intent.putExtra("idTurma", turma.getId());
-//        startActivity(intent);
+        Intent intent = new Intent(AlunoTurmaActivity.this, QuestionarioAlunoActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", turma.getId());
+        startActivity(intent);
     }
 }
