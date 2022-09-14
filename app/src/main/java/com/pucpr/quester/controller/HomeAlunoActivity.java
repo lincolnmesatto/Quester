@@ -130,7 +130,7 @@ public class HomeAlunoActivity extends AppCompatActivity implements InstituicaoH
         }
 
 
-        Intent intent = new Intent(HomeAlunoActivity.this, AlunoTurmaActivity.class);
+        Intent intent = new Intent(HomeAlunoActivity.this, AlunoInstituicaoDerivadoActivity.class);
         intent.putStringArrayListExtra("turmas", turmas);
         intent.putExtra("idInstituicao", instituicao.getId());
         intent.putExtra("idAluno", id);
