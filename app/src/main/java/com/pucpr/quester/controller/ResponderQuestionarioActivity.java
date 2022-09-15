@@ -23,6 +23,7 @@ import com.pucpr.quester.R;
 import com.pucpr.quester.controller.adapter.ResponderQuestionarioAdapter;
 import com.pucpr.quester.model.Alternativa;
 import com.pucpr.quester.model.AlternativaResposta;
+import com.pucpr.quester.model.Aluno;
 import com.pucpr.quester.model.DataModelResposta;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questao;
@@ -52,8 +53,11 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
     String idQuestionario;
 
     ArrayList<String> turmas;
+    Aluno aluno;
 
     ResponderQuestionarioAdapter questionarioAdapter;
+
+    int tipoPontuacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,27 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         }
 
         popularListaQuestionario(idQuestionario);
+
+        popularAluno(idAluno);
+    }
+
+    private void popularAluno(String idAluno) {
+        Query ref = firestore.collection("alunos").whereEqualTo("id", idAluno);
+        Task<QuerySnapshot> t = ref.get();
+
+        t.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    buscarAluno(task);
+                }
+            }
+        });
+    }
+
+    private void buscarAluno(Task<QuerySnapshot> task) {
+        List<Aluno> alunos = Objects.requireNonNull(task.getResult().toObjects(Aluno.class));
+        aluno = alunos.get(0);
     }
 
     private void popularListaQuestionario(String idQuestionario) {
@@ -104,6 +129,8 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
     private void buscarQuestionario(Task<QuerySnapshot> task) {
         List<Questionario> qs = Objects.requireNonNull(task.getResult().toObjects(Questionario.class));
         Questionario q = qs.get(0);
+
+        tipoPontuacao = q.getTipoPontuacao();
 
         DataModelResposta.getInstance().setQuestoesDataModel(new ArrayList<>());
 
@@ -176,6 +203,8 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
 
             firestore.collection("respostas").document(idResposta).set(resposta);
 
+            calcularExperiencia(tvResponderXp.getText().toString(), tipoPontuacao);
+
             Intent intent = new Intent(ResponderQuestionarioActivity.this, QuestionarioAlunoActivity.class);
             intent.putStringArrayListExtra("turmas", turmas);
             intent.putExtra("idInstituicao", idInstituicao);
@@ -202,5 +231,28 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         }
 
         return true;
+    }
+
+    private void calcularExperiencia(String xp, int tipoPontuacao) {
+        //1 - participacao 2 - acerto
+        if(tipoPontuacao <= 1){
+            aluno.setXp(aluno.getXp()+Float.valueOf(xp));
+            aluno.setLevel(calcularLevel());
+
+            firestore.collection("alunos").document(idAluno).set(aluno);
+        }
+    }
+
+    private int calcularLevel() {
+        int level = 1;
+        int p = (level * 1000)+(level *100);
+
+        while(aluno.getXp() > p){
+            p = ((level+1) * 1000)+((level+1) *100);
+            if(aluno.getXp() > p)
+                level++;
+        }
+
+        return level;
     }
 }
