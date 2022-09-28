@@ -153,7 +153,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
             List<String> turmas = new ArrayList<>();
             turmas.add("-");
 
-            Aluno aluno = new Aluno(id, usuario.getIdUsuario(), idInstituicao, 0f, 1, turmas);
+            Aluno aluno = new Aluno(id, usuario.getIdUsuario(), idInstituicao, 0f, 1, turmas,"-");
             firestore.collection("alunos").document(aluno.getId()).set(aluno);
         }else{
             DocumentReference ref = firestore.collection("professores").document();

@@ -8,18 +8,20 @@ public class Aluno {
     private String idInsituicao;
     private Float xp;
     private int level;
+    private String idClasse;
 
     private List<String> turmas;
 
     public Aluno(){}
 
-    public Aluno(String id, String idUsuario, String idInsituicao, Float xp, int level, List<String> turmas) {
+    public Aluno(String id, String idUsuario, String idInsituicao, Float xp, int level, List<String> turmas, String idClasse) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idInsituicao = idInsituicao;
         this.xp = xp;
         this.level = level;
         this.turmas = turmas;
+        this.idClasse = idClasse;
     }
 
     public String getId() {
@@ -68,5 +70,13 @@ public class Aluno {
 
     public void setTurmas(List<String> turmas) {
         this.turmas = turmas;
+    }
+
+    public String getIdClasse() {
+        return idClasse;
+    }
+
+    public void setIdClasse(String idClasse) {
+        this.idClasse = idClasse;
     }
 }
