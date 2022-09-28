@@ -112,6 +112,11 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         startActivity(i);
     }
 
+    public void btnAddClasseClicked(View view) {
+        Intent i = new Intent(HomeActivity.this, CadastrarClasseActivity.class);
+        startActivity(i);
+    }
+
     @Override
     public void onItemClick(DocumentSnapshot snapshot, int posicao) {
         Log.d("ITEM_CLICK", "Item clicado: "+posicao+ " ID = "+snapshot.getId());

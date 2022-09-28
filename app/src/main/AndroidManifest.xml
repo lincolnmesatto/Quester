@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quester">
         <activity
+            android:name=".controller.CadastrarClasseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.ClasseActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.AlunoDerivadoActivity"
             android:exported="false" />
         <activity
@@ -90,7 +96,6 @@
         <activity
             android:name=".controller.HomeActivity"
             android:exported="false" />
-
         <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -43,4 +43,17 @@
         app:srcCompat="@drawable/common_google_signin_btn_icon_light"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:clickable="true"
+        android:onClick="btnAddClasseClicked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddInstituicao"
+        app:layout_constraintStart_toEndOf="@+id/floatingActionButton2"
+        app:srcCompat="@drawable/home_icon"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

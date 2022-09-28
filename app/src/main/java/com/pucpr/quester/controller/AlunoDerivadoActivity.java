@@ -88,7 +88,6 @@ public class AlunoDerivadoActivity extends AppCompatActivity {
         List<Usuario> lista = Objects.requireNonNull(task.getResult().toObjects(Usuario.class));
 
         usuario = lista.get(0);
-
         editProfileName.setText(usuario.getNome());
         editProfileBirthDate.setText(usuario.getDtNascimento());
         editProfilePhone.setText(usuario.getTelefone());
