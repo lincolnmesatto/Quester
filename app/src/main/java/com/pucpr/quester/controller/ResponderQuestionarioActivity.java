@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.pucpr.quester.controller.adapter.ResponderQuestionarioAdapter;
 import com.pucpr.quester.model.Alternativa;
 import com.pucpr.quester.model.AlternativaResposta;
 import com.pucpr.quester.model.Aluno;
+import com.pucpr.quester.model.Classe;
 import com.pucpr.quester.model.DataModelResposta;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questao;
@@ -55,9 +57,14 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
     ArrayList<String> turmas;
     Aluno aluno;
 
+    Questionario questionario;
+    Resposta resposta;
+    Classe classe;
+
     ResponderQuestionarioAdapter questionarioAdapter;
 
     int tipoPontuacao;
+    boolean isRespondido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +94,15 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
             turmas = getIntent().getStringArrayListExtra("turmas");
         }
 
-        popularListaQuestionario(idQuestionario);
+        questionario = new Questionario();
+        classe = new Classe();
 
+        popularListaQuestionario(idQuestionario);
         popularAluno(idAluno);
+
+        obterClasse();
+
+        verificarExistenciaResposta();
     }
 
     private void popularAluno(String idAluno) {
@@ -130,10 +143,11 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         List<Questionario> qs = Objects.requireNonNull(task.getResult().toObjects(Questionario.class));
         Questionario q = qs.get(0);
 
+        questionario = q;
+
         tipoPontuacao = q.getTipoPontuacao();
 
         DataModelResposta.getInstance().setQuestoesDataModel(new ArrayList<>());
-
         DataModelResposta.getInstance().getQuestoesDataModel().addAll(q.getQuestoes());
 
         DataModelResposta.getInstance().setQuestoesRespostaDataModel(new ArrayList<>());
@@ -199,9 +213,11 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
             DocumentReference ref = firestore.collection("respostas").document();
             String idResposta = ref.getId();
 
-            Resposta resposta = new Resposta(idResposta, idQuestionario, idAluno, DataModelResposta.getInstance().getQuestoesRespostaDataModel());
+            Resposta r = new Resposta(idResposta, idQuestionario, idAluno, DataModelResposta.getInstance().getQuestoesRespostaDataModel());
 
-            firestore.collection("respostas").document(idResposta).set(resposta);
+            firestore.collection("respostas").document(idResposta).set(r);
+
+            resposta = r;
 
             calcularExperiencia(tvResponderXp.getText().toString(), tipoPontuacao);
 
@@ -235,12 +251,59 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
 
     private void calcularExperiencia(String xp, int tipoPontuacao) {
         //1 - participacao 2 - acerto
+        double xpCalculado = 0;
         if(tipoPontuacao <= 1){
-            aluno.setXp(aluno.getXp()+Float.valueOf(xp));
-            aluno.setLevel(calcularLevel());
+            if(classe.getId().equals("none"))
+                xpCalculado = aluno.getXp()+ Double.valueOf(xp);
+            else{
+                if(classe.getIdDisciplina().equals(questionario.getIdDisciplina()))
+                    xpCalculado = aluno.getXp()+(Double.valueOf(xp) + ((classe.getBonus()/100) * Double.valueOf(xp)));
+                else
+                    xpCalculado = aluno.getXp()+ Double.valueOf(xp);
+            }
 
-            firestore.collection("alunos").document(idAluno).set(aluno);
+            aluno.setXp(xpCalculado);
+            aluno.setLevel(calcularLevel());
+        }else{
+            double xpCorrigido = calcularExperienciaAcerto();
+            if(classe.getId().equals("none"))
+                xpCalculado = aluno.getXp() + Double.valueOf(xpCorrigido);
+            else{
+                if(classe.getIdDisciplina().equals(questionario.getIdDisciplina()))
+                    xpCalculado = aluno.getXp() + (Double.valueOf(xpCorrigido) + ((classe.getBonus()/100) * Double.valueOf(xpCorrigido)));
+                else
+                    xpCalculado = aluno.getXp() + Double.valueOf(xpCorrigido);
+            }
+
+            aluno.setXp(xpCalculado);
+            aluno.setLevel(calcularLevel());
         }
+
+        firestore.collection("alunos").document(idAluno).set(aluno);
+    }
+
+    public double calcularExperienciaAcerto(){
+        int errada = 0;
+        int posicao = 0;
+        for (QuestaoResposta qr : resposta.getQuestoesResposta()) {
+            Questao qq = questionario.getQuestoes().get(posicao);
+
+            int posicaoAlternativa = 0;
+            for (AlternativaResposta ar : qr.getAlternativas()) {
+                Alternativa aq = qq.getAlternativas().get(posicaoAlternativa);
+                if(ar.getCorreta() != aq.getCorreta()){
+                    errada++;
+                    break;
+                }
+
+                posicaoAlternativa++;
+            }
+
+            posicao++;
+        }
+
+       return errada == 0 ? questionario.getXp() : (errada == questionario.getQuestoes().size() ? 0 :
+               questionario.getXp() - ((Double.valueOf(questionario.getXp()) * errada) / questionario.getQuestoes().size()));
     }
 
     private int calcularLevel() {
@@ -254,5 +317,53 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         }
 
         return level;
+    }
+
+    public void verificarExistenciaResposta(){
+        Query ref = firestore.collection("respostas").whereEqualTo("idQuestionario", idQuestionario).whereEqualTo("idAluno", idAluno);
+
+        Task<QuerySnapshot> t = ref.get();
+
+        t.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    buscarResposta(task);
+                }
+            }
+        });
+    }
+
+    private void buscarResposta(Task<QuerySnapshot> task) {
+        List<Resposta> respostas = Objects.requireNonNull(task.getResult().toObjects(Resposta.class));
+
+        if(respostas.size() > 0){
+            resposta = respostas.get(0);
+            isRespondido = true;
+        }
+    }
+
+    private void obterClasse() {
+        if(!aluno.getIdClasse().equals("-")){
+            Query ref = firestore.collection("classes").whereEqualTo("id", aluno.getIdClasse());
+
+            Task<QuerySnapshot> t = ref.get();
+
+            t.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        buscarClasse(task);
+                    }
+                }
+            });
+        }else{
+            classe.setId("none");
+        }
+    }
+
+    private void buscarClasse(Task<QuerySnapshot> task) {
+        List<Classe> classes = Objects.requireNonNull(task.getResult().toObjects(Classe.class));
+        classe = classes.get(0);
     }
 }

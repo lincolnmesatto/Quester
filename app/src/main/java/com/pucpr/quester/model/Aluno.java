@@ -6,7 +6,7 @@ public class Aluno {
     private String id;
     private String idUsuario;
     private String idInsituicao;
-    private Float xp;
+    private double xp;
     private int level;
     private String idClasse;
 
@@ -14,7 +14,7 @@ public class Aluno {
 
     public Aluno(){}
 
-    public Aluno(String id, String idUsuario, String idInsituicao, Float xp, int level, List<String> turmas, String idClasse) {
+    public Aluno(String id, String idUsuario, String idInsituicao, double xp, int level, List<String> turmas, String idClasse) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idInsituicao = idInsituicao;
@@ -48,11 +48,11 @@ public class Aluno {
         this.idInsituicao = idInsituicao;
     }
 
-    public Float getXp() {
+    public double getXp() {
         return xp;
     }
 
-    public void setXp(Float xp) {
+    public void setXp(double xp) {
         this.xp = xp;
     }
 
