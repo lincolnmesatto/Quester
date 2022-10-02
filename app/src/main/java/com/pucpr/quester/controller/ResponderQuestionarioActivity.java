@@ -100,8 +100,6 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         popularListaQuestionario(idQuestionario);
         popularAluno(idAluno);
 
-        obterClasse();
-
         verificarExistenciaResposta();
     }
 
@@ -122,6 +120,8 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
     private void buscarAluno(Task<QuerySnapshot> task) {
         List<Aluno> alunos = Objects.requireNonNull(task.getResult().toObjects(Aluno.class));
         aluno = alunos.get(0);
+
+        obterClasse();
     }
 
     private void popularListaQuestionario(String idQuestionario) {
@@ -257,7 +257,7 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
                 xpCalculado = aluno.getXp()+ Double.valueOf(xp);
             else{
                 if(classe.getIdDisciplina().equals(questionario.getIdDisciplina()))
-                    xpCalculado = aluno.getXp()+(Double.valueOf(xp) + ((classe.getBonus()/100) * Double.valueOf(xp)));
+                    xpCalculado = aluno.getXp()+(Double.valueOf(xp) + ((Double.valueOf(classe.getBonus())/100) * Double.valueOf(xp)));
                 else
                     xpCalculado = aluno.getXp()+ Double.valueOf(xp);
             }
@@ -270,7 +270,7 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
                 xpCalculado = aluno.getXp() + Double.valueOf(xpCorrigido);
             else{
                 if(classe.getIdDisciplina().equals(questionario.getIdDisciplina()))
-                    xpCalculado = aluno.getXp() + (Double.valueOf(xpCorrigido) + ((classe.getBonus()/100) * Double.valueOf(xpCorrigido)));
+                    xpCalculado = aluno.getXp() + (Double.valueOf(xpCorrigido) + ((Double.valueOf(classe.getBonus())/100) * Double.valueOf(xpCorrigido)));
                 else
                     xpCalculado = aluno.getXp() + Double.valueOf(xpCorrigido);
             }
