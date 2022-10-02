@@ -113,7 +113,7 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
     }
 
     public void btnAddClasseClicked(View view) {
-        Intent i = new Intent(HomeActivity.this, CadastrarClasseActivity.class);
+        Intent i = new Intent(HomeActivity.this, ClasseActivity.class);
         startActivity(i);
     }
 
