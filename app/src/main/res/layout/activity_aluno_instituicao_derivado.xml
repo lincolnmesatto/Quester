@@ -88,6 +88,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="35dp"
         android:backgroundTint="@color/tortoise"
+        android:onClick="buttonRecompensaClicked"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
@@ -96,8 +97,8 @@
         <ImageView
             android:layout_width="96dp"
             android:layout_height="84dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="220dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_trophy"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="24dp"
@@ -108,13 +109,13 @@
             android:id="@+id/instDerRecompensa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
-            android:textStyle="bold"
             android:text="@string/recompensas"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 

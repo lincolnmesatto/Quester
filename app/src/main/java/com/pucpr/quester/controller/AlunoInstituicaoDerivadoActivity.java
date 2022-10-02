@@ -31,17 +31,25 @@ public class AlunoInstituicaoDerivadoActivity extends AppCompatActivity {
             turmas = getIntent().getStringArrayListExtra("turmas");
         }
     }
-    public void buttonTurmaClicked(View view){
 
+    public void buttonTurmaClicked(View view){
         Intent intent = new Intent(AlunoInstituicaoDerivadoActivity.this, AlunoTurmaActivity.class);
         intent.putStringArrayListExtra("turmas", turmas);
         intent.putExtra("idInstituicao", idInstituicao);
         intent.putExtra("idAluno", idAluno);
         startActivity(intent);
     }
-    public void buttonPerfilClicked(View view){
 
+    public void buttonPerfilClicked(View view){
         Intent intent = new Intent(AlunoInstituicaoDerivadoActivity.this, AlunoDerivadoActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        startActivity(intent);
+    }
+
+    public void buttonRecompensaClicked(View view){
+        Intent intent = new Intent(AlunoInstituicaoDerivadoActivity.this, RecompensaAlunoActivity.class);
         intent.putStringArrayListExtra("turmas", turmas);
         intent.putExtra("idInstituicao", idInstituicao);
         intent.putExtra("idAluno", idAluno);
