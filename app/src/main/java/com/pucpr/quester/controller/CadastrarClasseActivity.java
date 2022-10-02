@@ -3,6 +3,7 @@ package com.pucpr.quester.controller;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,7 +23,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Classe;
+import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.Disciplina;
+import com.pucpr.quester.model.Questionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,26 +60,20 @@ public class CadastrarClasseActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
+        popularListaDisciplina();
+
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = extras.getString("id");
-
-            DocumentReference docRef = firestore.collection("classes").document(id);
-            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Classe c = documentSnapshot.toObject(Classe.class);
-
-                    editTextClasse.setText(c.getNome());
-                }
-            });
+            popularClasse(id);
 
         }else{
             id = "none";
         }
+
     }
 
-    private void popularListaDisciplina(String disc) {
+    private void popularListaDisciplina() {
         Query ref = firestore.collection("disciplinas");
 
         Task<QuerySnapshot> t = ref.get();
@@ -94,33 +91,64 @@ public class CadastrarClasseActivity extends AppCompatActivity {
     private void buscarDisciplina(Task<QuerySnapshot> task) {
         disciplinas = Objects.requireNonNull(task.getResult().toObjects(Disciplina.class));
         ArrayList<String> nomesDisciplina = new ArrayList<>();
+        nomesDisciplina.add("Disciplinas");
         for (Disciplina d:disciplinas) {
             nomesDisciplina.add(d.getNome());
         }
 
-//        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomesDisciplina);
-//        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerClasseDisciplina.setAdapter(spinnerArrayAdapter);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomesDisciplina);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerClasseDisciplina.setAdapter(spinnerArrayAdapter);
 
-        ArrayAdapter<CharSequence> adapterPontuacao = ArrayAdapter.createFromResource(CadastrarClasseActivity.this, R.array.pontuacao_type,
-                android.R.layout.simple_spinner_item);
-        adapterPontuacao.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerClasseDisciplina.setAdapter(adapterPontuacao);
     }
 
-//    public void buttonSalvarClicked(View view) {
-//
-//        if (id == "none") {
-//            DocumentReference ref = firestore.collection("disciplinas").document();
-//            id = ref.getId();
-//        }
-//
-//        Classe classe = new Classe(id, editTextClasse.getText().toString(),editTextBonus,spinnerClasseDisciplina);
-//
-//        //if(mAwesomeValidation.validate()){
-//        criarClasse(classe);
+    private void popularClasse(String id) {
+        Query ref = firestore.collection("classes").whereEqualTo("id",id);
+
+        Task<QuerySnapshot> t = ref.get();
+
+        t.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    buscarClasse(task);
+                }
+            }
+        });
+    }
+
+    private void buscarClasse(Task<QuerySnapshot> task) {
+        List<Classe> classes = Objects.requireNonNull(task.getResult().toObjects(Classe.class));
+        Classe c = classes.get(0);
+        editTextClasse.setText(c.getNome());
+        editTextBonus.setText(String.valueOf(c.getBonus()));
+
+        for(int i = 0; i<=disciplinas.size();i++){
+            if(disciplinas.get(i).getId().equals(c.getIdDisciplina())){
+                spinnerClasseDisciplina.setSelection(i+1);
+                break;
+            }
+        }
+    }
+
+    public void buttonSalvarClicked(View view) {
+
+        if (id == "none") {
+            id = disciplinas.get(spinnerClasseDisciplina.getSelectedItemPosition()-1).getId();
+        }
+
+        Classe classe = new Classe(id, editTextClasse.getText().toString(),Integer.valueOf(editTextBonus.getText().toString()),disciplinas.get(spinnerClasseDisciplina.getSelectedItemPosition()-1).getId());
+        //if(mAwesomeValidation.validate()){
+        criarClasse(classe);
 //                }else {
 //                    Toast.makeText(getApplicationContext(), "Preencha os campos Obrigatorios",Toast.LENGTH_LONG).show();
 //                }
-//    }
+    }
+    public void criarClasse(Classe classe){
+        firestore.collection("classes").document(id).set(classe);
+
+        Intent intent = new Intent(CadastrarClasseActivity.this, ClasseActivity.class);
+//        intent.putStringArrayListExtra("classe", disciplinas);
+        startActivity(intent);
+    }
 }
