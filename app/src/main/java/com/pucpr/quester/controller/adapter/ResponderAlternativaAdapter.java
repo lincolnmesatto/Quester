@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,14 @@ import android.widget.TextView;
 
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Alternativa;
+import com.pucpr.quester.model.DataModel;
 import com.pucpr.quester.model.DataModelResposta;
+import com.pucpr.quester.model.QuestaoResposta;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ResponderAlternativaAdapter extends RecyclerView.Adapter<ResponderAlternativaAdapter.ResponderAlternativaViewHolder> {
@@ -38,7 +42,30 @@ public class ResponderAlternativaAdapter extends RecyclerView.Adapter<ResponderA
 
     @Override
     public void onBindViewHolder(@NonNull ResponderAlternativaViewHolder holder, int position) {
-        holder.tvAlternativaResposta.setText(DataModelResposta.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getAlternativa());
+        if(DataModelResposta.getInstance().isRespondido()){
+            int correta = (DataModelResposta.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getCorreta());
+            int escolhida = (DataModelResposta.getInstance().getQuestoesRespostaDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getCorreta());
+
+            if(correta != escolhida){
+                if(escolhida == 1){
+                    holder.checkBoxQuestaoResposta.setChecked(true);
+                    holder.cardViewAlternativaResposta.setCardBackgroundColor(Color.parseColor("#D92917"));
+                }
+
+                if(correta == 1){
+                    holder.checkBoxQuestaoResposta.setChecked(true);
+                    holder.cardViewAlternativaResposta.setCardBackgroundColor(Color.parseColor("#6EFA85"));
+                }
+            }else{
+                if(correta == 1){
+                    holder.checkBoxQuestaoResposta.setChecked(true);
+                    holder.cardViewAlternativaResposta.setCardBackgroundColor(Color.parseColor("#6EFA85"));
+                }
+            }
+
+            holder.checkBoxQuestaoResposta.setEnabled(false);
+        }
+        holder.checkBoxQuestaoResposta.setText(DataModelResposta.getInstance().getQuestoesDataModel().get(posicaoQuestao).getAlternativas().get(holder.getAdapterPosition()).getAlternativa());
 
         holder.checkBoxQuestaoResposta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -56,13 +83,13 @@ public class ResponderAlternativaAdapter extends RecyclerView.Adapter<ResponderA
 
     public class ResponderAlternativaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView tvAlternativaResposta;
         private final CheckBox checkBoxQuestaoResposta;
+        private final CardView cardViewAlternativaResposta;
 
         public ResponderAlternativaViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvAlternativaResposta = itemView.findViewById(R.id.tvAlternativaResposta);
             checkBoxQuestaoResposta = itemView.findViewById(R.id.checkBoxQuestaoResposta);
+            cardViewAlternativaResposta = itemView.findViewById(R.id.cardViewAlternativaResposta);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

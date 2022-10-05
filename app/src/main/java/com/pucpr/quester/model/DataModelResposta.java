@@ -11,6 +11,7 @@ public class DataModelResposta {
     private ArrayList<Questao> questoesDataModel;
     private Context context;
     private int posicao;
+    private boolean respondido;
 
     private DataModelResposta(){
         questoesDataModel = new ArrayList<>();
@@ -55,5 +56,13 @@ public class DataModelResposta {
 
     public void setQuestoesDataModel(ArrayList<Questao> questoesDataModel) {
         this.questoesDataModel = questoesDataModel;
+    }
+
+    public boolean isRespondido() {
+        return respondido;
+    }
+
+    public void setRespondido(boolean respondido) {
+        this.respondido = respondido;
     }
 }
