@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.pucpr.quester.R;
 import com.pucpr.quester.model.Disciplina;
 import com.pucpr.quester.model.Questionario;
@@ -74,6 +75,15 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
                     onListItemClick.onItemClick(questionarios.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onListItemClick == null)
+                        return false;
+
+                    return onListItemClick.onItemLongClick(questionarios.get(getAdapterPosition()), getAdapterPosition());
+                }
+            });
         }
 
         @Override
@@ -84,5 +94,6 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
 
     public interface OnListItemClick {
         void onItemClick(Questionario questionario, int posicao);
+        boolean onItemLongClick(Questionario questionario, int posicao);
     }
 }

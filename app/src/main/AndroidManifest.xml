@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quester">
         <activity
+            android:name=".controller.QuestionarioDerivadoActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.RecompensaAlunoActivity"
             android:exported="false" />
         <activity
@@ -104,8 +107,8 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

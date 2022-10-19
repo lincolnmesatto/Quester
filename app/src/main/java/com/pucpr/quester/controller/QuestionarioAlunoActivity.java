@@ -103,6 +103,11 @@ public class QuestionarioAlunoActivity extends AppCompatActivity implements Ques
         startActivity(intent);
     }
 
+    @Override
+    public boolean onItemLongClick(Questionario questionario, int posicao) {
+        return false;
+    }
+
     private void popularListaDisciplina(String disc) {
         Query ref = firestore.collection("disciplinas").whereEqualTo("id", disc);
 

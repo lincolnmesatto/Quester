@@ -52,7 +52,6 @@
             app:layout_constraintTop_toBottomOf="@+id/spinnerDisciplina"
             android:background="@drawable/round_border"
             android:padding="16dp"/>
-        lg9n
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewQuestoes"

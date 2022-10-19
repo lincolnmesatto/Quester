@@ -164,6 +164,19 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
         startActivity(intent);
     }
 
+    @Override
+    public boolean onItemLongClick(Questionario questionario, int posicao) {
+        Intent intent = new Intent(QuestionarioActivity.this, QuestionarioDerivadoActivity.class);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        intent.putExtra("idTurma", idTurma);
+        intent.putExtra("idQuestionario", questionario.getId());
+        startActivity(intent);
+
+        return true;
+    }
+
     public void deletar(int position){
         firestore.collection("questionarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
