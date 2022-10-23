@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,11 @@ public class InstituicaoAdapter extends FirestorePagingAdapter<Instituicao, Inst
         holder.textViewNomeEstado.setText(model.getEstado());
         holder.textViewNomeCidade.setText(model.getCidade());
 
-//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
 
+        holder.textViewNomeCidade.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeInstituicao.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeEstado.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @NonNull
