@@ -45,6 +45,8 @@ public class DownloadActivity extends AppCompatActivity implements TurmaDiscipli
 
         firestore = FirebaseFirestore.getInstance();
 
+        setTitle("Material de apoio");
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             idAluno = extras.getString("idAluno");

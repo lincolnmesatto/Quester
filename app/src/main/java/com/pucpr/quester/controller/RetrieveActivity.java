@@ -48,6 +48,8 @@ public class RetrieveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve);
 
+        setTitle("Material de apoio");
+
         listView = findViewById(R.id.listPdfDownload);
 
         firestore = FirebaseFirestore.getInstance();

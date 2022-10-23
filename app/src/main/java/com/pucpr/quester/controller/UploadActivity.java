@@ -41,7 +41,8 @@ public class UploadActivity extends AppCompatActivity {
     StorageReference storageReference;
 
     EditText editText;
-    Button btn;
+    Button btnUpload;
+    Button btnSelecionarUpload;
     Spinner spinner;
 
     ArrayList<String> disciplinas;
@@ -58,8 +59,11 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
 
         editText = findViewById(R.id.editTextUpdload);
-        btn = findViewById(R.id.btnUpload);
+        btnUpload = findViewById(R.id.btnUpload);
+        btnSelecionarUpload = findViewById(R.id.btnSelecionarUpload);
         spinner = findViewById(R.id.spinnerDisciplinaUpload);
+
+        setTitle("Material de apoio");
 
         firestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -81,8 +85,8 @@ public class UploadActivity extends AppCompatActivity {
             popularListaDisciplina(disc);
         }
 
-        btn.setEnabled(false);
-        editText.setOnClickListener(new View.OnClickListener() {
+        btnUpload.setEnabled(false);
+        btnSelecionarUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectPdf();
@@ -102,9 +106,9 @@ public class UploadActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 12 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            btn.setEnabled(true);
+            btnUpload.setEnabled(true);
             editText.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/")+1));
-            btn.setOnClickListener(new View.OnClickListener() {
+            btnUpload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     uploadPDF(data.getData());
@@ -131,12 +135,15 @@ public class UploadActivity extends AppCompatActivity {
 
                 Arquivo arquivo = new Arquivo(editText.getText().toString(), uri.toString(), idTurma, disciplinas.get(spinner.getSelectedItemPosition()-1));
 
-                DocumentReference ref = firestore.collection("disciplinas").document();
+                DocumentReference ref = firestore.collection("arquivos").document();
                 String id = ref.getId();
                 firestore.collection("arquivos").document(id).set(arquivo);
 
                 Toast.makeText(UploadActivity.this, "Arquivo carregado com sucesso", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
+
+                editText.setText("");
+                spinner.setSelection(0);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override

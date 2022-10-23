@@ -33,9 +33,20 @@
         android:id="@+id/btnUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="160dp"
         android:text="Upload"
         app:layout_constraintEnd_toEndOf="@+id/editTextUpdload"
+        app:layout_constraintStart_toStartOf="@+id/editTextUpdload"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUpdload" />
+
+    <Button
+        android:id="@+id/btnSelecionarUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Selecionar"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUpdload"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/editTextUpdload"
         app:layout_constraintTop_toBottomOf="@+id/editTextUpdload" />
 
