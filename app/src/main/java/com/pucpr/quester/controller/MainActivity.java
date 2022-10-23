@@ -16,6 +16,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
+    FirebaseAnalytics firebaseAnalytics;
 
     EditText editTextLogin;
     EditText editTextPassword;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -70,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             if (firebaseUser != null) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, firebaseUser.getUid());
+                                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, login);
+                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "login");
+                                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
+
                                 Intent intent = new Intent(MainActivity.this, RedirectLoginActivity.class);
                                 startActivity(intent);
                             }
