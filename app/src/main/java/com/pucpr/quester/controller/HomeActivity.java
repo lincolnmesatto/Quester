@@ -112,10 +112,6 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
         startActivity(i);
     }
 
-    public void btnAddClasseClicked(View view) {
-        Intent i = new Intent(HomeActivity.this, ClasseActivity.class);
-        startActivity(i);
-    }
 
     @Override
     public void onItemClick(DocumentSnapshot snapshot, int posicao) {
@@ -175,7 +171,7 @@ public class HomeActivity extends AppCompatActivity implements InstituicaoAdapte
     @Override
     public void onBackPressed() {
         //firebaseAuth.signOut();
-        Intent i = new Intent(HomeActivity.this, MainActivity.class);
+        Intent i = new Intent(HomeActivity.this, MenuAdminActivity.class);
         startActivity(i);
     }
 }

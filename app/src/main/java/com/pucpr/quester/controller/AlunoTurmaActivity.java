@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AlunoTurmaActivity extends AppCompatActivity implements AlunoTurmaAdapter.OnListItemClick {
+public class    AlunoTurmaActivity extends AppCompatActivity implements AlunoTurmaAdapter.OnListItemClick {
 
     FirebaseFirestore firestore;
     FirebaseUser firebaseUser;

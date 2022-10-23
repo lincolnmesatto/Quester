@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.pucpr.quester.R;
 import com.pucpr.quester.model.Disciplina;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, DisciplinaAdapter.DisciplinaViewHolder> {
@@ -28,7 +30,8 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
     @Override
     protected void onBindViewHolder(@NonNull DisciplinaViewHolder holder, int position, @NonNull Disciplina model) {
         holder.textViewNomeDisciplina.setText(model.getNome());
-//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewNomeDisciplina.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @NonNull
@@ -63,10 +66,12 @@ public class DisciplinaAdapter extends FirestorePagingAdapter<Disciplina, Discip
     public class DisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textViewNomeDisciplina;
+        private final CardView cardViewUserView;
 
         public DisciplinaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeDisciplina);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.pucpr.quester.model.Disciplina;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TurmaDisciplinaAdapter extends RecyclerView.Adapter<TurmaDisciplinaAdapter.TurmaDisciplinaViewHolder> {
@@ -34,6 +36,10 @@ public class TurmaDisciplinaAdapter extends RecyclerView.Adapter<TurmaDisciplina
     @Override
     public void onBindViewHolder(@NonNull TurmaDisciplinaViewHolder holder, int position) {
         holder.textViewNomeDisciplina.setText(disciplinas.get(position).getNome());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewNomeDisciplina.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+
     }
 
     @Override
@@ -44,10 +50,12 @@ public class TurmaDisciplinaAdapter extends RecyclerView.Adapter<TurmaDisciplina
     public class TurmaDisciplinaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textViewNomeDisciplina;
+        private final CardView cardViewUserView;
 
         public TurmaDisciplinaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeDisciplina = itemView.findViewById(R.id.textViewNomeDisciplina);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

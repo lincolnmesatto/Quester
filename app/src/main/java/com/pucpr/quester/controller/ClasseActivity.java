@@ -132,4 +132,9 @@ public class ClasseActivity extends AppCompatActivity implements ClasseAdapter.O
         Intent intent = new Intent(ClasseActivity.this, CadastrarClasseActivity.class);
         startActivity(intent);
     }
+    public void onBackPressed() {
+        //firebaseAuth.signOut();
+        Intent i = new Intent(ClasseActivity.this, MenuAdminActivity.class);
+        startActivity(i);
+    }
 }

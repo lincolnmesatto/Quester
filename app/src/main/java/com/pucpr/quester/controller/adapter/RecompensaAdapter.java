@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.pucpr.quester.R;
 import com.pucpr.quester.model.Recompensa;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecompensaAdapter extends FirestorePagingAdapter<Recompensa, RecompensaAdapter.RecompensaViewHolder> {
@@ -28,7 +30,11 @@ public class RecompensaAdapter extends FirestorePagingAdapter<Recompensa, Recomp
     protected void onBindViewHolder(@NonNull RecompensaAdapter.RecompensaViewHolder holder, int position, @NonNull Recompensa model) {
         holder.textViewDescricaoRecompensa.setText(model.getDescricao());
         holder.textViewLvl.setText("Nível: "+model.getLevelAdquire());
-//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewDescricaoRecompensa.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewLvl.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+
     }
 
     @NonNull
@@ -64,11 +70,13 @@ public class RecompensaAdapter extends FirestorePagingAdapter<Recompensa, Recomp
 
         private final TextView textViewDescricaoRecompensa;
         private final TextView textViewLvl;
+        private final CardView cardViewUserView;
 
         public RecompensaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewDescricaoRecompensa = itemView.findViewById(R.id.textViewDescricaoRecompensa);
             textViewLvl = itemView.findViewById(R.id.textViewLvl);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

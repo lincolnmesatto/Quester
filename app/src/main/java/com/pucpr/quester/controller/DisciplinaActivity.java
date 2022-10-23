@@ -156,7 +156,7 @@ public class DisciplinaActivity extends AppCompatActivity implements DisciplinaA
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(DisciplinaActivity.this, HomeActivity.class);
+        Intent i = new Intent(DisciplinaActivity.this, MenuAdminActivity.class);
         startActivity(i);
     }
 }

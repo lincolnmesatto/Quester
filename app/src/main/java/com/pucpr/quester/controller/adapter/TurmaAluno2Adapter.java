@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.pucpr.quester.model.UsuarioAlunoModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TurmaAluno2Adapter extends RecyclerView.Adapter<TurmaAluno2Adapter.TurmaAluno2ViewHolder> {
@@ -32,6 +34,10 @@ public class TurmaAluno2Adapter extends RecyclerView.Adapter<TurmaAluno2Adapter.
     public void onBindViewHolder(@NonNull TurmaAluno2ViewHolder holder, int position) {
         holder.textViewNomeAluno.setText(alunos.get(position).getUsuario().getNome());
         holder.textViewCpfAluno.setText(alunos.get(position).getUsuario().getCpf());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewCpfAluno.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeAluno.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @Override
@@ -43,11 +49,13 @@ public class TurmaAluno2Adapter extends RecyclerView.Adapter<TurmaAluno2Adapter.
 
         private final TextView textViewNomeAluno;
         private final TextView textViewCpfAluno;
+        private final CardView cardViewUserView;
 
         public TurmaAluno2ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeAluno = itemView.findViewById(R.id.textViewNomeAluno);
             textViewCpfAluno = itemView.findViewById(R.id.textViewCpfAluno);
+            cardViewUserView = itemView.findViewById(R.id.userView);
         }
     }
 }

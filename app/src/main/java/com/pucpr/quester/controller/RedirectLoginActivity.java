@@ -69,7 +69,7 @@ public class RedirectLoginActivity extends AppCompatActivity {
                    startActivity(intent);
                    break;
                case 3:
-                   Intent i2 = new Intent(RedirectLoginActivity.this, HomeActivity.class);
+                   Intent i2 = new Intent(RedirectLoginActivity.this, MenuAdminActivity.class);
 //                   i.putExtra("id", id);
                    startActivity(i2);
                    break;

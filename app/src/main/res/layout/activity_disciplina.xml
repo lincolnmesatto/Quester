@@ -29,6 +29,7 @@
         android:onClick="btnAddDisciplinaClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recyclerViewDisciplina"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        android:src="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

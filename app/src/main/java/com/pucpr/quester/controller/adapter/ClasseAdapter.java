@@ -1,11 +1,13 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pucpr.quester.R;
@@ -43,6 +45,10 @@ public class ClasseAdapter extends RecyclerView.Adapter<ClasseAdapter.ClasseView
                 break;
             }
         }
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+
+        holder.textViewClasse.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewClasseDisciplina.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @Override
@@ -54,11 +60,13 @@ public class ClasseAdapter extends RecyclerView.Adapter<ClasseAdapter.ClasseView
 
         private final TextView textViewClasse;
         private final TextView textViewClasseDisciplina;
+        private final CardView cardViewUserView;
 
         public ClasseViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewClasse = itemView.findViewById(R.id.textViewClasse);
             textViewClasseDisciplina = itemView.findViewById(R.id.textViewClasseDisciplina);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

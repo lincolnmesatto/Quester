@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
@@ -28,7 +30,9 @@ public class TurmaAdapter extends FirestorePagingAdapter<Turma, TurmaAdapter.Tur
     @Override
     protected void onBindViewHolder(@NonNull TurmaViewHolder holder, int position, @NonNull Turma model) {
         holder.textViewNomeTurma.setText(model.getNomeTurma());
-//        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0?Color.parseColor("#00648B"):Color.parseColor("#00B0FF"));
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewNomeTurma.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @NonNull
@@ -63,10 +67,12 @@ public class TurmaAdapter extends FirestorePagingAdapter<Turma, TurmaAdapter.Tur
     public class TurmaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textViewNomeTurma;
+        private final CardView cardViewUserView;
 
         public TurmaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeTurma = itemView.findViewById(R.id.textViewNomeTurma);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

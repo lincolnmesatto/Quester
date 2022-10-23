@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.pucpr.quester.model.UsuarioProfessorModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TurmaProfessorAdapter extends RecyclerView.Adapter<TurmaProfessorAdapter.TurmaProfessorViewHolder> {
@@ -36,6 +38,10 @@ public class TurmaProfessorAdapter extends RecyclerView.Adapter<TurmaProfessorAd
     public void onBindViewHolder(@NonNull TurmaProfessorViewHolder holder, int position) {
         holder.textViewNomeProfessor.setText(professores.get(position).getUsuario().getNome());
         holder.textViewCpfProfessor.setText(professores.get(position).getUsuario().getCpf());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewCpfProfessor.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeProfessor.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @Override
@@ -47,11 +53,13 @@ public class TurmaProfessorAdapter extends RecyclerView.Adapter<TurmaProfessorAd
 
         private final TextView textViewNomeProfessor;
         private final TextView textViewCpfProfessor;
+        private final CardView cardViewUserView;
 
         public TurmaProfessorViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeProfessor = itemView.findViewById(R.id.textViewNomeProfessor);
             textViewCpfProfessor = itemView.findViewById(R.id.textViewCpfProfessor);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

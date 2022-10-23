@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +46,6 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
     TextView tvResponderDisciplina;
     TextView tvResponderXp;
     TextView tvResponderTitulo;
-    Button btnSalvarRespsta;
 
     RecyclerView recyclerViewQuestoesResposta;
 
@@ -80,13 +78,11 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         firebaseUser = firebaseAuth.getCurrentUser();
 
         DataModelResposta.getInstance().setContext(ResponderQuestionarioActivity.this);
-        DataModelResposta.getInstance().setQuestoesRespostaDataModel(new ArrayList<>());
 
         tvResponderDisciplina = findViewById(R.id.tvResponderDisciplina);
         tvResponderXp = findViewById(R.id.tvResponderXp);
         tvResponderTitulo = findViewById(R.id.tvResponderTitulo);
         recyclerViewQuestoesResposta = findViewById(R.id.recyclerViewQuestoesResposta);
-        btnSalvarRespsta = findViewById(R.id.btnSalvarRespsta);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -101,10 +97,10 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         questionario = new Questionario();
         classe = new Classe();
 
-        verificarExistenciaResposta();
+        popularListaQuestionario(idQuestionario);
         popularAluno(idAluno);
 
-        popularListaQuestionario(idQuestionario);
+        verificarExistenciaResposta();
     }
 
     private void popularAluno(String idAluno) {
@@ -154,6 +150,8 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         DataModelResposta.getInstance().setQuestoesDataModel(new ArrayList<>());
         DataModelResposta.getInstance().getQuestoesDataModel().addAll(q.getQuestoes());
 
+        DataModelResposta.getInstance().setQuestoesRespostaDataModel(new ArrayList<>());
+
         for (Questao questao : DataModelResposta.getInstance().getQuestoesDataModel()) {
             List<Alternativa> temp = new ArrayList<>();
             List<AlternativaResposta> listaAlternativa = new ArrayList<>();
@@ -168,8 +166,7 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
 
             questao.getAlternativas().removeAll(temp);
 
-            if(!isRespondido)
-                DataModelResposta.getInstance().getQuestoesRespostaDataModel().add(new QuestaoResposta(listaAlternativa));
+            DataModelResposta.getInstance().getQuestoesRespostaDataModel().add(new QuestaoResposta(listaAlternativa));
         }
 
         tvResponderTitulo.setText(q.getTitulo());
@@ -343,14 +340,6 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         if(respostas.size() > 0){
             resposta = respostas.get(0);
             isRespondido = true;
-            DataModelResposta.getInstance().setRespondido(isRespondido);
-            btnSalvarRespsta.setEnabled(false);
-
-            for (Resposta r : respostas) {
-                DataModelResposta.getInstance().getQuestoesRespostaDataModel().addAll(r.getQuestoesResposta());
-            }
-        }else{
-            DataModelResposta.getInstance().setRespondido(false);
         }
     }
 
