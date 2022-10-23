@@ -30,4 +30,17 @@
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="512dp"
+        android:clickable="true"
+        android:onClick="btnUploadClicked"
+        app:layout_constraintStart_toStartOf="@+id/recyclerviewListQuestionario"
+        app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionario"
+        app:srcCompat="@android:drawable/stat_sys_upload"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

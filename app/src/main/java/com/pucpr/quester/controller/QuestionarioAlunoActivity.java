@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -133,5 +134,14 @@ public class QuestionarioAlunoActivity extends AppCompatActivity implements Ques
         recyclerviewListQuestionarioAluno.setHasFixedSize(true);
         recyclerviewListQuestionarioAluno.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewListQuestionarioAluno.setAdapter(questionarioListAdapter);
+    }
+
+    public void btnDownloadClicked(View view){
+        Intent intent = new Intent(QuestionarioAlunoActivity.this, DownloadActivity.class);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", idTurma);
+        intent.putStringArrayListExtra("turmas", turmas);
+        startActivity(intent);
     }
 }

@@ -132,6 +132,15 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
         startActivity(intent);
     }
 
+    public void btnUploadClicked(View view){
+        Intent intent = new Intent(QuestionarioActivity.this, UploadActivity.class);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        intent.putExtra("idTurma", idTurma);
+        startActivity(intent);
+    }
+
     private void popularListaDisciplina(String disc) {
         Query ref = firestore.collection("disciplinas").whereEqualTo("id", disc);
 

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.QuestionarioAlunoActivity">
+    tools:context=".controller.DownloadActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewListQuestionarioAluno"
+        android:id="@+id/recyclerViewDisciplinaDownload"
         android:layout_width="364dp"
         android:layout_height="570dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,17 +16,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.484" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="512dp"
-        android:clickable="true"
-        android:onClick="btnDownloadClicked"
-        app:layout_constraintStart_toStartOf="@+id/recyclerviewListQuestionarioAluno"
-        app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionarioAluno"
-        app:srcCompat="@android:drawable/stat_sys_download"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
