@@ -27,6 +27,7 @@
         app:layout_constraintStart_toStartOf="@+id/recyclerviewListQuestionarioAluno"
         app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionarioAluno"
         app:srcCompat="@android:drawable/stat_sys_download"
+        app:tint="@android:color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

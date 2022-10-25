@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.pucpr.quester.model.Instituicao;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class InstituicaoHomeAdapter extends RecyclerView.Adapter<InstituicaoHomeAdapter.InstituicaoHomeViewHolder> {
@@ -36,6 +38,11 @@ public class InstituicaoHomeAdapter extends RecyclerView.Adapter<InstituicaoHome
         holder.textViewNomeInstituicao.setText(instituicoes.get(position).getNome());
         holder.textViewNomeEstado.setText(instituicoes.get(position).getEstado());
         holder.textViewNomeCidade.setText(instituicoes.get(position).getCidade());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewNomeCidade.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeEstado.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewNomeInstituicao.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @Override
@@ -48,12 +55,14 @@ public class InstituicaoHomeAdapter extends RecyclerView.Adapter<InstituicaoHome
         private final TextView textViewNomeInstituicao;
         private final TextView textViewNomeEstado;
         private final TextView textViewNomeCidade;
+        private final CardView cardViewUserView;
 
         public InstituicaoHomeViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeInstituicao = itemView.findViewById(R.id.textViewNomeInstituicao);
             textViewNomeEstado = itemView.findViewById(R.id.textViewNomeEstado);
             textViewNomeCidade = itemView.findViewById(R.id.textViewNomeCidade);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

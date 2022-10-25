@@ -27,7 +27,8 @@
         android:onClick="btnAddQuestionarioClicked"
         app:layout_constraintEnd_toEndOf="@+id/recyclerviewListQuestionario"
         app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionario"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        android:src="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -40,6 +41,7 @@
         android:onClick="btnUploadClicked"
         app:layout_constraintStart_toStartOf="@+id/recyclerviewListQuestionario"
         app:layout_constraintTop_toTopOf="@+id/recyclerviewListQuestionario"
+        app:tint="@android:color/white"
         app:srcCompat="@android:drawable/stat_sys_upload"
         tools:ignore="SpeakableTextPresentCheck" />
 

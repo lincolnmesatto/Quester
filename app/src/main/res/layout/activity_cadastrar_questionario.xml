@@ -55,8 +55,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewQuestoes"
-            android:layout_width="310dp"
-            android:layout_height="202dp"
+            android:layout_width="375dp"
+            android:layout_height="230dp"
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="@+id/spinnerTipoPontuacao"
             app:layout_constraintHorizontal_bias="0.495"

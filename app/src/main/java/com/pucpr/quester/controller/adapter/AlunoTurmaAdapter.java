@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.pucpr.quester.model.Turma;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlunoTurmaAdapter extends RecyclerView.Adapter<AlunoTurmaAdapter.AlunoTurmaViewHolder> {
@@ -34,6 +36,10 @@ public class AlunoTurmaAdapter extends RecyclerView.Adapter<AlunoTurmaAdapter.Al
     @Override
     public void onBindViewHolder(@NonNull AlunoTurmaViewHolder holder, int position) {
         holder.textViewNomeTurma.setText(turmas.get(position).getNomeTurma());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewNomeTurma.setTextColor(position % 2 == 0? Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+
     }
 
     @Override
@@ -44,10 +50,12 @@ public class AlunoTurmaAdapter extends RecyclerView.Adapter<AlunoTurmaAdapter.Al
     public class AlunoTurmaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textViewNomeTurma;
+        private final CardView cardViewUserView;
 
         public AlunoTurmaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeTurma = itemView.findViewById(R.id.textViewNomeTurma);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

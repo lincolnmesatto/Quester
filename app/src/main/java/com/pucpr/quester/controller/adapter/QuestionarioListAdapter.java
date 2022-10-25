@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.pucpr.quester.model.Questionario;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioListAdapter.QuestionarioListViewHolder> {
@@ -46,6 +48,13 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
         }
         holder.textViewListQtdQuestao.setText("Nº de questões: "+questionarios.get(position).getQuestoes().size());
         holder.textViewListXp.setText("Experiência: "+questionarios.get(position).getXp());
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewListQtdQuestao.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewListDisciplina.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewListXp.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewListTitulo.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+
     }
 
     @Override
@@ -59,6 +68,7 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
         private final TextView textViewListDisciplina;
         private final TextView textViewListQtdQuestao;
         private final TextView textViewListXp;
+        private final CardView cardViewUserView;
 
         public QuestionarioListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +76,7 @@ public class QuestionarioListAdapter extends RecyclerView.Adapter<QuestionarioLi
             textViewListDisciplina = itemView.findViewById(R.id.textViewListDisciplina);
             textViewListQtdQuestao = itemView.findViewById(R.id.textViewListQtdQuestao);
             textViewListXp = itemView.findViewById(R.id.textViewListXp);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
