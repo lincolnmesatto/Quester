@@ -6,28 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".controller.AlunoDerivadoActivity">
 
-    <TextView
-        android:id="@+id/profileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/editProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Name"
-        app:layout_constraintEnd_toEndOf="@+id/profileName"
-        app:layout_constraintStart_toStartOf="@+id/profileName"
-        app:layout_constraintTop_toBottomOf="@+id/profileName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editProfileBirthDate"
@@ -60,10 +50,11 @@
         android:id="@+id/salvarProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="176dp"
         android:onClick="salvarPerfil"
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="@+id/editProfilePhone"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/editProfilePhone"
         app:layout_constraintTop_toBottomOf="@+id/editProfilePhone" />
 
@@ -71,14 +62,24 @@
         android:id="@+id/classeSpinner"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/salvarProfile"
         app:layout_constraintEnd_toEndOf="@+id/editProfilePhone"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/editProfilePhone"
         app:layout_constraintTop_toBottomOf="@+id/editProfilePhone"
-        app:layout_constraintVertical_bias="0.486"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textViewDescClasse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/classeSpinner"
+        app:layout_constraintStart_toStartOf="@+id/classeSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/classeSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
