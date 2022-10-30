@@ -176,7 +176,7 @@ public class UploadActivity extends AppCompatActivity {
         nomeDisciplinas.add(d.getNome());
         disciplinaList.add(d);
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomeDisciplinas);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.my_spinner_file, nomeDisciplinas);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
     }

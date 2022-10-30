@@ -199,4 +199,12 @@ public class RecompensaAlunoActivity extends AppCompatActivity implements Recomp
             startActivity(intent);
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(RecompensaAlunoActivity.this, InsituicaoDerivadoActivity.class);
+        i.putExtra("idInstituicao", idInstituicao);
+        i.putExtra("idAluno", idAluno);
+        i.putExtra("turmas", turmas);
+        startActivity(i);
+    }
 }

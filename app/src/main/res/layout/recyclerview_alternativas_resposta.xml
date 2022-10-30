@@ -20,6 +20,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewAlternativaResposta"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
             android:layout_height="match_parent">
 
             <CheckBox

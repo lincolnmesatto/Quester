@@ -75,6 +75,8 @@ public class AlunoDerivadoActivity extends AppCompatActivity {
         classes = new ArrayList<>();
         disciplinas = new ArrayList<>();
 
+        setTitle("Perfil Aluno");
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             idAluno = extras.getString("idAluno");

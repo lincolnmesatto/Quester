@@ -10,6 +10,8 @@
         android:id="@+id/graficoQuestionario"
         android:layout_width="343dp"
         android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

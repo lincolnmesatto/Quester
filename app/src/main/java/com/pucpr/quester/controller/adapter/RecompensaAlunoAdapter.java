@@ -1,5 +1,6 @@
 package com.pucpr.quester.controller.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.pucpr.quester.model.UsuarioAlunoModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecompensaAlunoAdapter extends RecyclerView.Adapter<RecompensaAlunoAdapter.RecompensaAlunoViewHolder> {
@@ -40,8 +42,13 @@ public class RecompensaAlunoAdapter extends RecyclerView.Adapter<RecompensaAluno
     @Override
     public void onBindViewHolder(@NonNull RecompensaAlunoViewHolder holder, int position) {
         holder.textViewDescricaoRecompensaAluno.setText(recompensas.get(position).getDescricao());
-        holder.textViewLevelRecompensaAluno.setText(String.valueOf(recompensas.get(position).getLevelAdquire()));
+        holder.textViewLevelRecompensaAluno.setText("Nível: " + recompensas.get(position).getLevelAdquire());
         holder.textViewObtidoRecompensaAluno.setText(recompensaAlunos.get(position).isResgatada() ? "Obtido" : "Obter");
+
+        holder.cardViewUserView.setCardBackgroundColor(position % 2 == 0? Color.parseColor("#474747"):Color.parseColor("#FFFFFF"));
+        holder.textViewDescricaoRecompensaAluno.setTextColor(position % 2 == 0? Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewLevelRecompensaAluno.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
+        holder.textViewObtidoRecompensaAluno.setTextColor(position % 2 == 0?Color.parseColor("#FFFFFF"):Color.parseColor("#474747"));
     }
 
     @Override
@@ -54,12 +61,14 @@ public class RecompensaAlunoAdapter extends RecyclerView.Adapter<RecompensaAluno
         private final TextView textViewDescricaoRecompensaAluno;
         private final TextView textViewLevelRecompensaAluno;
         private final TextView textViewObtidoRecompensaAluno;
+        private final CardView cardViewUserView;
 
         public RecompensaAlunoViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewDescricaoRecompensaAluno = itemView.findViewById(R.id.textViewDescricaoRecompensaAluno);
             textViewLevelRecompensaAluno = itemView.findViewById(R.id.textViewLevelRecompensaAluno);
             textViewObtidoRecompensaAluno = itemView.findViewById(R.id.textViewObtidoRecompensaAluno);
+            cardViewUserView = itemView.findViewById(R.id.userView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

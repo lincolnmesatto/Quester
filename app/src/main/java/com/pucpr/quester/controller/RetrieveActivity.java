@@ -111,10 +111,10 @@ public class RetrieveActivity extends AppCompatActivity {
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                TextView textView = view.findViewById(android.R.id.text1);
 
                 textView.setTextColor(Color.BLACK);
-                textView.setTextSize(20);
+                textView.setTextSize(18);
 
                 return view;
             }

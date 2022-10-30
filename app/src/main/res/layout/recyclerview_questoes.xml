@@ -20,9 +20,11 @@
         <EditText
             android:id="@+id/editTextQuestao"
             android:layout_width="350dp"
-            android:layout_height="48dp"
+            android:layout_height="58dp"
+            android:background="@drawable/round_border"
             android:ems="10"
-            android:gravity="start|top"
+            android:textSize="18sp"
+            android:paddingLeft="10sp"
             android:hint="@string/enunciado"
             android:importantForAutofill="no"
             android:inputType="textMultiLine" />

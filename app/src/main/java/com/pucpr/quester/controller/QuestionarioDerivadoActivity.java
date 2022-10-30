@@ -65,6 +65,8 @@ public class QuestionarioDerivadoActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        setTitle("Graficos de Atividades");
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             idProfessor = extras.getString("idProfessor");
@@ -208,7 +210,8 @@ public class QuestionarioDerivadoActivity extends AppCompatActivity {
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
 
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        //pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
         pieChart.animateXY(1400, 1400);
     }

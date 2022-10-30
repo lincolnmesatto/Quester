@@ -8,23 +8,29 @@
 
     <EditText
         android:id="@+id/editProfileName"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:ems="10"
+        android:background="@drawable/round_border"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Name"
+        android:padding="16dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editProfileBirthDate"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:background="@drawable/round_border"
         android:ems="10"
+        android:padding="16dp"
+        android:textSize="18sp"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Data de Nascimento"
@@ -34,12 +40,15 @@
 
     <EditText
         android:id="@+id/editProfilePhone"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
+        android:background="@drawable/round_border"
         android:inputType="phone"
         android:minHeight="48dp"
+        android:padding="16dp"
+        android:textSize="18sp"
         android:text="Telefone"
         app:layout_constraintEnd_toEndOf="@+id/editProfileBirthDate"
         app:layout_constraintStart_toStartOf="@+id/editProfileBirthDate"
@@ -49,10 +58,11 @@
     <Button
         android:id="@+id/salvarProfile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="180dp"
         android:onClick="salvarPerfil"
         android:text="Salvar"
+        android:background="@drawable/round_border"
         app:layout_constraintEnd_toEndOf="@+id/editProfilePhone"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/editProfilePhone"
@@ -60,9 +70,10 @@
 
     <Spinner
         android:id="@+id/classeSpinner"
-        android:layout_width="160dp"
+        android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
+        android:textSize="18sp"
         android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/salvarProfile"
         app:layout_constraintEnd_toEndOf="@+id/editProfilePhone"
@@ -74,10 +85,11 @@
 
     <TextView
         android:id="@+id/textViewDescClasse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="25dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/classeSpinner"
         app:layout_constraintStart_toStartOf="@+id/classeSpinner"
         app:layout_constraintTop_toBottomOf="@+id/classeSpinner" />

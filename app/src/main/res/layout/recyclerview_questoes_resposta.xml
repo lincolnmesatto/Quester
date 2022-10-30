@@ -20,8 +20,13 @@
         <TextView
             android:id="@+id/tvEnunciadoResposta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enunciado" />
+            android:layout_height="58dp"
+            android:background="@drawable/round_border"
+            android:paddingLeft="20sp"
+            android:paddingTop="15sp"
+            android:text="@string/enunciado"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAlternativaResposta"
