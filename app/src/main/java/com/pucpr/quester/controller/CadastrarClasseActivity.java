@@ -40,6 +40,7 @@ public class CadastrarClasseActivity extends AppCompatActivity {
     Spinner spinnerClasseDisciplina;
 
     List<Disciplina> disciplinas;
+    List<Disciplina> disciplinasList;
     List<Classe> classeList;
 
     @Override
@@ -54,20 +55,23 @@ public class CadastrarClasseActivity extends AppCompatActivity {
         spinnerClasseDisciplina = findViewById(R.id.spinnerClasseDisciplina);
 
         disciplinas = new ArrayList<>();
+        disciplinasList = new ArrayList<>();
         classeList = new ArrayList<>();
 
         firestore = FirebaseFirestore.getInstance();
 
-        popularListaClasse();
-        popularListaDisciplina();
-
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = extras.getString("id");
-            popularClasse(id);
         }else{
             id = "none";
         }
+
+        popularListaClasse();
+        popularListaDisciplina();
+
+        if(!id.equals("none"))
+            popularClasse(id);
     }
 
     private void popularListaDisciplina() {
@@ -87,22 +91,31 @@ public class CadastrarClasseActivity extends AppCompatActivity {
 
     private void buscarDisciplina(Task<QuerySnapshot> task) {
         disciplinas = Objects.requireNonNull(task.getResult().toObjects(Disciplina.class));
+
         ArrayList<String> nomesDisciplina = new ArrayList<>();
         nomesDisciplina.add("Disciplinas");
 
-        List<Disciplina> temp = new ArrayList<>();
-        for (Disciplina d : disciplinas) {
-            for (Classe c : classeList) {
-                if(c.getIdDisciplina().equals(d.getId()))
-                    temp.add(d);
+        if(!id.equals("none")){
+            for (Disciplina d:disciplinas) {
+                nomesDisciplina.add(d.getNome());
+            }
+            spinnerClasseDisciplina.setEnabled(false);
+        }else{
+            List<Disciplina> temp = new ArrayList<>();
+            for (Disciplina d : disciplinas) {
+                for (Classe c : classeList) {
+                    if(c.getIdDisciplina().equals(d.getId()))
+                        temp.add(d);
+                }
+            }
+
+            disciplinas.removeAll(temp);
+
+            for (Disciplina d:disciplinas) {
+                nomesDisciplina.add(d.getNome());
             }
         }
 
-        disciplinas.removeAll(temp);
-
-        for (Disciplina d:disciplinas) {
-            nomesDisciplina.add(d.getNome());
-        }
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomesDisciplina);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -134,9 +147,11 @@ public class CadastrarClasseActivity extends AppCompatActivity {
         for(int i = 0; i<=disciplinas.size();i++){
             if(disciplinas.get(i).getId().equals(c.getIdDisciplina())){
                 spinnerClasseDisciplina.setSelection(i+1);
+                spinnerClasseDisciplina.setEnabled(false);
                 break;
             }
         }
+
     }
 
     public void buttonSalvarClicked(View view) {
