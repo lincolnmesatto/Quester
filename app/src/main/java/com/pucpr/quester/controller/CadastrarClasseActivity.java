@@ -40,7 +40,6 @@ public class CadastrarClasseActivity extends AppCompatActivity {
     Spinner spinnerClasseDisciplina;
 
     List<Disciplina> disciplinas;
-    List<Disciplina> disciplinasList;
     List<Classe> classeList;
 
     @Override
@@ -55,7 +54,6 @@ public class CadastrarClasseActivity extends AppCompatActivity {
         spinnerClasseDisciplina = findViewById(R.id.spinnerClasseDisciplina);
 
         disciplinas = new ArrayList<>();
-        disciplinasList = new ArrayList<>();
         classeList = new ArrayList<>();
 
         firestore = FirebaseFirestore.getInstance();
