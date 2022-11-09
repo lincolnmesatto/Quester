@@ -3,6 +3,8 @@ package com.pucpr.quester.controller;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,19 +22,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pucpr.quester.R;
+import com.pucpr.quester.controller.adapter.QuestionarioListAdapter;
+import com.pucpr.quester.controller.adapter.RetrieveAdapter;
 import com.pucpr.quester.model.Arquivo;
-import com.pucpr.quester.model.Disciplina;
 
-import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RetrieveActivity extends AppCompatActivity {
+public class RetrieveActivity extends AppCompatActivity implements RetrieveAdapter.OnListItemClick {
 
     FirebaseFirestore firestore;
 
-    ListView listView;
+    RecyclerView recyclerView;
     List<Arquivo> arquivos;
 
     String idAluno;
@@ -43,6 +44,8 @@ public class RetrieveActivity extends AppCompatActivity {
 
     ArrayList<String> turmas;
 
+    RetrieveAdapter retrieveAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,7 @@ public class RetrieveActivity extends AppCompatActivity {
 
         setTitle("Material de apoio");
 
-        listView = findViewById(R.id.listPdfDownload);
+        recyclerView = findViewById(R.id.recyclerViewRetrieve);
 
         firestore = FirebaseFirestore.getInstance();
         arquivos = new ArrayList<>();
@@ -67,17 +70,6 @@ public class RetrieveActivity extends AppCompatActivity {
 
         retrieveFiles();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Arquivo arquivo = arquivos.get(position);
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setType("application/pdf");
-                intent.setData(Uri.parse(arquivo.getUrl()));
-                startActivity(intent);
-            }
-        });
     }
 
     private void retrieveFiles() {
@@ -100,26 +92,23 @@ public class RetrieveActivity extends AppCompatActivity {
 
         String[] filesNames = new String[arquivos.size()];
 
-        for (int i = 0; i < filesNames.length; i++){
-            filesNames[i] = arquivos.get(i).getName();
-        }
+        retrieveAdapter = new RetrieveAdapter(this, arquivos);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, filesNames){
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(retrieveAdapter);
 
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView textView = view.findViewById(android.R.id.text1);
+    }
 
-                textView.setTextColor(Color.BLACK);
-                textView.setTextSize(18);
+    @Override
+    public void onItemClick(Arquivo arquivo, int posicao) {
 
-                return view;
-            }
-        };
+        Arquivo a = arquivos.get(posicao);
 
-        listView.setAdapter(adapter);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setType("application/pdf");
+        intent.setData(Uri.parse(arquivo.getUrl()));
+        startActivity(intent);
+
     }
 }
