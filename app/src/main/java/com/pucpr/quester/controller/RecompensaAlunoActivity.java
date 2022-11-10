@@ -1,12 +1,14 @@
 package com.pucpr.quester.controller;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.pucpr.quester.model.Recompensa;
 import com.pucpr.quester.model.RecompensaAluno;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -121,6 +124,7 @@ public class RecompensaAlunoActivity extends AppCompatActivity implements Recomp
         Task<QuerySnapshot> t = ref.get();
 
         t.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -130,6 +134,7 @@ public class RecompensaAlunoActivity extends AppCompatActivity implements Recomp
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void buscarRecompensas(Task<QuerySnapshot> task) {
         List<Recompensa> list = Objects.requireNonNull(task.getResult().toObjects(Recompensa.class));
 
@@ -138,6 +143,8 @@ public class RecompensaAlunoActivity extends AppCompatActivity implements Recomp
                 recompensas.add(r);
             }
         }
+
+        recompensas.sort(Comparator.comparing(Recompensa::getLevelAdquire));
 
         popularRecompensaAluno();
     }
@@ -201,7 +208,7 @@ public class RecompensaAlunoActivity extends AppCompatActivity implements Recomp
     }
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(RecompensaAlunoActivity.this, InsituicaoDerivadoActivity.class);
+        Intent i = new Intent(RecompensaAlunoActivity.this, AlunoInstituicaoDerivadoActivity.class);
         i.putExtra("idInstituicao", idInstituicao);
         i.putExtra("idAluno", idAluno);
         i.putExtra("turmas", turmas);
