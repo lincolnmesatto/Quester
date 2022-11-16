@@ -224,4 +224,13 @@ public class QuestionarioActivity extends AppCompatActivity implements Questiona
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(QuestionarioActivity.this, ProfessorTurmaActivity.class);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        intent.putExtra("idTurma", idTurma);
+        startActivity(intent);
+    }
 }

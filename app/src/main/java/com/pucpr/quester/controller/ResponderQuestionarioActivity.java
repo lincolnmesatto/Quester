@@ -366,4 +366,14 @@ public class ResponderQuestionarioActivity extends AppCompatActivity implements 
         List<Classe> classes = Objects.requireNonNull(task.getResult().toObjects(Classe.class));
         classe = classes.get(0);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ResponderQuestionarioActivity.this, QuestionarioAlunoActivity.class);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", idTurma);
+        intent.putExtra("idQuestionario", questionario.getId());
+        intent.putStringArrayListExtra("turmas", turmas);
+        startActivity(intent);
+    }
 }

@@ -56,4 +56,12 @@ public class AlunoInstituicaoDerivadoActivity extends AppCompatActivity {
         intent.putExtra("idAluno", idAluno);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AlunoInstituicaoDerivadoActivity.this, HomeAlunoActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        startActivity(intent);
+    }
 }

@@ -111,4 +111,13 @@ public class RetrieveActivity extends AppCompatActivity implements RetrieveAdapt
         startActivity(intent);
 
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RetrieveActivity.this, DownloadActivity.class);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", idTurma);
+        intent.putStringArrayListExtra("turmas", turmas);
+        startActivity(intent);
+    }
 }

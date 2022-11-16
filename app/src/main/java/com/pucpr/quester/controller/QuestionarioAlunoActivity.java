@@ -144,4 +144,13 @@ public class QuestionarioAlunoActivity extends AppCompatActivity implements Ques
         intent.putStringArrayListExtra("turmas", turmas);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(QuestionarioAlunoActivity.this, AlunoTurmaActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", idTurma);
+        startActivity(intent);
+    }
 }

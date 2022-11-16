@@ -104,4 +104,12 @@ public class AlunoTurmaActivity extends AppCompatActivity implements AlunoTurmaA
         intent.putExtra("idTurma", turma.getId());
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AlunoTurmaActivity.this, AlunoInstituicaoDerivadoActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        startActivity(intent);
+    }
 }

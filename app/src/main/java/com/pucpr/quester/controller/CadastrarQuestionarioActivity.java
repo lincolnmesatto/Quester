@@ -283,4 +283,13 @@ public class CadastrarQuestionarioActivity extends AppCompatActivity implements 
 
         questionarioAdapter.notifyItemInserted(DataModel.getInstance().getQuestoesDataModel().size()-1);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CadastrarQuestionarioActivity.this, ProfessorTurmaActivity.class);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        intent.putExtra("idTurma", idTurma);
+        startActivity(intent);
+    }
 }

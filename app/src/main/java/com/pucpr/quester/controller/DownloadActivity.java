@@ -106,4 +106,13 @@ public class DownloadActivity extends AppCompatActivity implements TurmaDiscipli
         intent.putStringArrayListExtra("turmas", turmas);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(DownloadActivity.this, QuestionarioAlunoActivity.class);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idAluno", idAluno);
+        intent.putExtra("idTurma", idTurma);
+        intent.putStringArrayListExtra("turmas", turmas);
+        startActivity(intent);
+    }
 }

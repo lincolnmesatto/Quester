@@ -119,4 +119,13 @@ public class ProfessorTurmaActivity extends AppCompatActivity implements Profess
         intent.putExtra("idTurma", turma.getId());
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProfessorTurmaActivity.this, HomeProfessorActivity.class);
+        intent.putStringArrayListExtra("turmas", turmas);
+        intent.putStringArrayListExtra("disciplinas", disciplinas);
+        intent.putExtra("idInstituicao", idInstituicao);
+        intent.putExtra("idProfessor", idProfessor);
+        startActivity(intent);
+    }
 }
